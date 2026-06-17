@@ -1,7 +1,8 @@
 const rawBasePath = import.meta.env.BASE_URL ?? "/";
+const rawSiteOrigin = import.meta.env.VITE_SITE_ORIGIN ?? "https://nutrivalife.ru";
 
 export const SITE_BASE_PATH = rawBasePath === "/" ? "" : rawBasePath.replace(/\/$/, "");
-export const SITE_ORIGIN = "https://alexdanwq.github.io";
+export const SITE_ORIGIN = rawSiteOrigin.replace(/\/$/, "");
 
 export function sitePath(path: string) {
   if (/^(https?:|mailto:|tel:)/.test(path)) {

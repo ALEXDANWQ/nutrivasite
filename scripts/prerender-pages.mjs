@@ -6,6 +6,7 @@ const projectRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const clientDir = join(projectRoot, "dist", "client");
 const basePath = normalizeBasePath(process.env.VITE_BASE_PATH ?? "/");
 const siteOrigin = process.env.SITE_ORIGIN ?? "https://alexdanwq.github.io";
+const siteDomain = process.env.SITE_DOMAIN?.trim();
 const server = (await import("../dist/server/server.js")).default;
 
 const routes = [
@@ -29,6 +30,9 @@ for (const page of routes) {
 }
 
 await writeFile(join(clientDir, ".nojekyll"), "");
+if (siteDomain) {
+  await writeFile(join(clientDir, "CNAME"), `${siteDomain}\n`);
+}
 await writeFile(join(clientDir, "404.html"), await serverHtmlFor("/"));
 
 async function serverHtmlFor(route) {

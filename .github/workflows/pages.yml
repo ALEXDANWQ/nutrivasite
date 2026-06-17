@@ -34,8 +34,10 @@ jobs:
       - name: Build static Pages artifact
         run: npm run build:pages
         env:
-          VITE_BASE_PATH: /nutrivasite/
-          SITE_ORIGIN: https://alexdanwq.github.io
+          VITE_BASE_PATH: /
+          VITE_SITE_ORIGIN: https://nutrivalife.ru
+          SITE_ORIGIN: https://nutrivalife.ru
+          SITE_DOMAIN: nutrivalife.ru
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
