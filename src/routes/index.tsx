@@ -7,25 +7,93 @@ import { Progress } from "@/components/landing/Progress";
 import { Products } from "@/components/landing/Products";
 import { CTA } from "@/components/landing/CTA";
 import { Footer } from "@/components/landing/Footer";
+import { Audience } from "@/components/landing/Audience";
+import { Trust } from "@/components/landing/Trust";
+import { HowItWorks } from "@/components/landing/HowItWorks";
+import { LandingFAQ } from "@/components/landing/LandingFAQ";
+import { MobileStickyCTA } from "@/components/landing/MobileStickyCTA";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { absoluteSiteUrl } from "@/lib/site-path";
+import { RUSTORE } from "@/components/landing/Header";
+import { landingFaqs } from "@/lib/landing-faqs";
+
+const homeTitle = "NUTRIVA — счетчик калорий, дневник питания и БЖУ на Android";
+const homeDescription =
+  "Скачайте NUTRIVA — удобное Android-приложение для учета калорий, БЖУ, воды, веса и прогресса. Дневник питания, сканер штрихкодов и статистика в одном месте.";
+const homeOgTitle = "NUTRIVA — счетчик калорий и дневник питания";
+const homeOgDescription =
+  "Следите за калориями, БЖУ, водой, весом и прогрессом в удобном Android-приложении.";
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${absoluteSiteUrl("/")}#organization`,
+      name: "NUTRIVA",
+      url: absoluteSiteUrl("/"),
+      logo: absoluteSiteUrl("/og-image.svg"),
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${absoluteSiteUrl("/")}#website`,
+      name: "NUTRIVA",
+      url: absoluteSiteUrl("/"),
+      inLanguage: "ru-RU",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${absoluteSiteUrl("/")}#app`,
+      name: "NUTRIVA",
+      operatingSystem: "Android",
+      applicationCategory: "HealthApplication",
+      description: "Android-приложение для учета питания, калорий, БЖУ, воды, веса и прогресса.",
+      downloadUrl: RUSTORE,
+      url: absoluteSiteUrl("/"),
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${absoluteSiteUrl("/")}#faq`,
+      mainEntity: landingFaqs.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    },
+  ],
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NUTRIVA — дневник питания, калории, БЖУ и прогресс" },
+      { title: homeTitle },
       {
         name: "description",
-        content:
-          "NUTRIVA помогает вести дневник питания, считать калории и БЖУ, контролировать воду, вес, ИМТ и прогресс в удобном минималистичном приложении.",
+        content: homeDescription,
       },
-      { property: "og:title", content: "NUTRIVA — дневник питания, калории, БЖУ и прогресс" },
+      {
+        name: "keywords",
+        content:
+          "счетчик калорий, дневник питания, БЖУ, приложение для похудения, контроль веса, учет воды, калории Android, NUTRIVA",
+      },
+      { property: "og:title", content: homeOgTitle },
       {
         property: "og:description",
-        content:
-          "Минималистичное приложение для контроля питания: калории, БЖУ, вода, вес и прогресс.",
+        content: homeOgDescription,
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: absoluteSiteUrl("/") },
+      { property: "og:image", content: absoluteSiteUrl("/og-image.svg") },
+      { property: "og:locale", content: "ru_RU" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: homeOgTitle },
+      {
+        name: "twitter:description",
+        content: "Учет калорий, БЖУ, воды, веса и прогресса на Android.",
+      },
+      { name: "twitter:image", content: absoluteSiteUrl("/og-image.svg") },
       { name: "application-name", content: "NUTRIVA" },
     ],
     links: [
@@ -44,14 +112,20 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <main className="min-h-screen bg-background overflow-x-clip">
+      <JsonLd data={homeJsonLd} />
       <Header />
       <Hero />
-      <Features />
       <WhyNutriva />
+      <Features />
+      <Audience />
+      <Trust />
+      <HowItWorks />
       <Progress />
       <Products />
+      <LandingFAQ />
       <CTA />
       <Footer />
+      <MobileStickyCTA />
     </main>
   );
 }

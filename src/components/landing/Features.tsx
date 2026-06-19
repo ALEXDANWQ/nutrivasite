@@ -8,17 +8,56 @@ import {
   IconStar,
   IconDrop,
   IconScale,
+  IconArrowDown,
 } from "./Icons";
+import { RUSTORE } from "./Header";
 
 const items = [
-  { icon: IconDiary, title: "Дневник питания", text: "Быстро добавляйте завтраки, обеды, ужины и перекусы." },
-  { icon: IconFlame, title: "Счетчик калорий", text: "Следите за дневной нормой и остатком калорий." },
-  { icon: IconRing, title: "БЖУ", text: "Контролируйте белки, жиры и углеводы без сложных расчетов." },
-  { icon: IconScan, title: "Сканер штрихкодов", text: "Быстро находите продукты по упаковке." },
-  { icon: IconPlus, title: "Свои продукты", text: "Добавляйте блюда и продукты, которых нет в базе." },
-  { icon: IconStar, title: "Избранное", text: "Сохраняйте частые продукты для быстрого доступа." },
-  { icon: IconDrop, title: "Контроль воды", text: "Отслеживайте дневную норму воды." },
-  { icon: IconScale, title: "Вес и ИМТ", text: "Следите за динамикой веса и изменением ИМТ." },
+  {
+    icon: IconDiary,
+    title: "Дневник питания",
+    text: "Записывайте приемы пищи и смотрите, как они влияют на дневную норму калорий и БЖУ.",
+  },
+  {
+    icon: IconFlame,
+    title: "Счетчик калорий",
+    text: "Следите за калориями в течение дня и быстрее понимайте, где рацион выходит за пределы цели.",
+  },
+  {
+    icon: IconRing,
+    title: "Учет белков, жиров и углеводов",
+    text: "Контролируйте БЖУ, чтобы рацион был не только ограниченным по калориям, но и более сбалансированным.",
+  },
+  {
+    icon: IconScan,
+    title: "Сканирование штрихкодов",
+    text: "Добавляйте продукты быстрее с помощью сканирования штрихкодов, если продукт есть в базе.",
+  },
+  {
+    icon: IconPlus,
+    title: "Добавление своих продуктов",
+    text: "Создавайте собственные продукты и используйте их повторно в дневнике питания.",
+  },
+  {
+    icon: IconStar,
+    title: "Избранные продукты",
+    text: "Сохраняйте частые продукты и блюда, чтобы добавлять их в дневник без повторного поиска.",
+  },
+  {
+    icon: IconDrop,
+    title: "Контроль воды",
+    text: "Отмечайте воду в течение дня и формируйте более стабильный питьевой режим.",
+  },
+  {
+    icon: IconScale,
+    title: "Отслеживание веса и ИМТ",
+    text: "Записывайте изменения веса и отслеживайте динамику без лишних догадок.",
+  },
+  {
+    icon: IconRing,
+    title: "Статистика прогресса",
+    text: "Смотрите, как меняются показатели, и корректируйте привычки на основе спокойных данных.",
+  },
 ];
 
 export function Features() {
@@ -30,12 +69,14 @@ export function Features() {
             — Возможности
           </p>
           <h2 className="font-display text-balance text-[32px] sm:text-[42px] md:text-[58px] leading-[1] sm:leading-[0.98] font-black tracking-[-0.035em]">
-            Все для контроля питания —<br className="hidden sm:block" />{" "}
-            <span className="font-serif italic font-normal text-primary-deep">в одном приложении.</span>
+            Калории, БЖУ, вода и вес —<br className="hidden sm:block" />{" "}
+            <span className="font-serif italic font-normal text-primary-deep">
+              в одном приложении.
+            </span>
           </h2>
         </Reveal>
 
-        <div className="grid grid-cols-1 gap-3 min-[430px]:grid-cols-2 sm:gap-4 md:gap-5 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 min-[430px]:grid-cols-2 sm:gap-4 md:gap-5 lg:grid-cols-3">
           {items.map((it, i) => {
             const Icon = it.icon;
             return (
@@ -54,8 +95,7 @@ export function Features() {
                     <div
                       className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center text-primary-deep transition-all duration-500 group-hover:scale-[1.06]"
                       style={{
-                        background:
-                          "linear-gradient(150deg, #F2FBF5 0%, #DDF2E5 100%)",
+                        background: "linear-gradient(150deg, #F2FBF5 0%, #DDF2E5 100%)",
                         boxShadow:
                           "inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(17,24,39,0.04), 0 10px 24px -12px rgba(21,153,87,0.35)",
                       }}
@@ -64,8 +104,12 @@ export function Features() {
                     </div>
                   </div>
 
-                  <h3 className="font-semibold text-[14px] sm:text-[15.5px] tracking-tight leading-snug">{it.title}</h3>
-                  <p className="mt-1.5 sm:mt-2 text-[12.5px] sm:text-[13.5px] text-muted-foreground leading-relaxed">{it.text}</p>
+                  <h3 className="font-semibold text-[14px] sm:text-[15.5px] tracking-tight leading-snug">
+                    {it.title}
+                  </h3>
+                  <p className="mt-1.5 sm:mt-2 text-[12.5px] sm:text-[13.5px] text-muted-foreground leading-relaxed">
+                    {it.text}
+                  </p>
 
                   <div
                     aria-hidden
@@ -80,6 +124,22 @@ export function Features() {
             );
           })}
         </div>
+
+        <Reveal className="mt-9 text-center sm:mt-12">
+          <p className="mb-4 text-[13px] font-medium text-muted-foreground">
+            Начните с простого дневника питания
+          </p>
+          <a
+            href={RUSTORE}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl px-6 text-[14px] font-bold text-white shadow-elevated transition-all hover:scale-[1.02] sm:w-auto sm:rounded-full sm:px-7 sm:text-[15px]"
+            style={{ background: "linear-gradient(135deg, #36C978 0%, #159957 100%)" }}
+          >
+            <IconArrowDown className="h-4 w-4" />
+            Скачать NUTRIVA
+          </a>
+        </Reveal>
       </div>
     </section>
   );

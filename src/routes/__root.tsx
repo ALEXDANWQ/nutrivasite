@@ -11,6 +11,10 @@ import { type ReactNode } from "react";
 import { absoluteSiteUrl, sitePath } from "@/lib/site-path";
 import appCss from "../styles.css?url";
 
+const defaultTitle = "NUTRIVA — счетчик калорий, дневник питания и БЖУ на Android";
+const defaultDescription =
+  "Скачайте NUTRIVA — Android-приложение для учета калорий, БЖУ, воды, веса и прогресса.";
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -70,25 +74,34 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "NUTRIVA — дневник питания, калории, БЖУ и прогресс" },
+      { title: defaultTitle },
       {
         name: "description",
-        content:
-          "NUTRIVA помогает вести дневник питания, считать калории и БЖУ, контролировать воду, вес, ИМТ и прогресс.",
+        content: defaultDescription,
       },
       { name: "author", content: "NUTRIVA" },
-      { property: "og:title", content: "NUTRIVA — дневник питания, калории, БЖУ и прогресс" },
+      { property: "og:title", content: "NUTRIVA — счетчик калорий и дневник питания" },
       {
         property: "og:description",
         content:
-          "Минималистичное приложение для контроля питания: калории, БЖУ, вода, вес и прогресс.",
+          "Следите за калориями, БЖУ, водой, весом и прогрессом в удобном Android-приложении.",
       },
       { property: "og:url", content: absoluteSiteUrl("/") },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:image", content: absoluteSiteUrl("/og-image.svg") },
+      { property: "og:locale", content: "ru_RU" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "NUTRIVA — счетчик калорий и дневник питания" },
+      {
+        name: "twitter:description",
+        content: "Учет калорий, БЖУ, воды, веса и прогресса на Android.",
+      },
+      { name: "twitter:image", content: absoluteSiteUrl("/og-image.svg") },
     ],
     links: [
+      { rel: "icon", type: "image/svg+xml", href: sitePath("/favicon.svg") },
+      { rel: "shortcut icon", href: sitePath("/favicon.svg") },
+      { rel: "apple-touch-icon", href: sitePath("/favicon.svg") },
       {
         rel: "stylesheet",
         href: appCss,
@@ -103,7 +116,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <head>
         <HeadContent />
       </head>

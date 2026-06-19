@@ -4,19 +4,31 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Footer } from "@/components/landing/Footer";
 import { Header, RUSTORE } from "@/components/landing/Header";
 import { IconArrowDown, IconBolt, IconLeaf, IconScale } from "@/components/landing/Icons";
+import { absoluteSiteUrl } from "@/lib/site-path";
+
+const bmiTitle = "Расчет ИМТ онлайн — калькулятор индекса массы тела NUTRIVA";
+const bmiDescription =
+  "Рассчитайте индекс массы тела онлайн и используйте NUTRIVA для спокойного контроля веса, питания, воды и прогресса.";
 
 export const Route = createFileRoute("/bmi")({
   head: () => ({
     meta: [
-      { title: "Расчет ИМТ - NUTRIVA" },
+      { title: bmiTitle },
       {
         name: "description",
-        content:
-          "Удобный калькулятор индекса массы тела: рассчитайте ИМТ, категорию веса и ориентир по диапазону.",
+        content: bmiDescription,
       },
-      { property: "og:title", content: "Расчет ИМТ - NUTRIVA" },
-      { property: "og:description", content: "Калькулятор индекса массы тела от NUTRIVA." },
+      { property: "og:title", content: bmiTitle },
+      { property: "og:description", content: bmiDescription },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: absoluteSiteUrl("/bmi") },
+      { property: "og:image", content: absoluteSiteUrl("/og-image.svg") },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: bmiTitle },
+      { name: "twitter:description", content: bmiDescription },
+      { name: "twitter:image", content: absoluteSiteUrl("/og-image.svg") },
     ],
+    links: [{ rel: "canonical", href: absoluteSiteUrl("/bmi") }],
   }),
   component: BMIPage,
 });
@@ -236,9 +248,7 @@ function BMIPage() {
           </motion.section>
 
           <AnimatePresence initial={false}>
-            {showWeightPlanNotice ? (
-              <BmiPlanNotice tone={isBelowNorm ? "below" : "above"} />
-            ) : null}
+            {showWeightPlanNotice ? <BmiPlanNotice tone={isBelowNorm ? "below" : "above"} /> : null}
           </AnimatePresence>
         </div>
       </section>
@@ -272,7 +282,8 @@ function BmiPlanNotice({ tone }: { tone: "below" | "above" }) {
       transition={{ duration: 0.5, ease }}
       className="relative mx-auto mt-4 w-full max-w-[360px] overflow-hidden rounded-[1.55rem] border border-emerald-100/80 bg-white/92 p-4 shadow-[0_18px_56px_-36px_rgba(21,153,87,0.32)] backdrop-blur-xl sm:mt-5 sm:max-w-full sm:rounded-[1.75rem] sm:p-6 md:p-7"
       style={{
-        background: "linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(247,253,249,0.96) 100%)",
+        background:
+          "linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(247,253,249,0.96) 100%)",
       }}
     >
       <div
@@ -311,7 +322,6 @@ function BmiPlanNotice({ tone }: { tone: "below" | "above" }) {
               </span>
             ))}
           </div>
-
         </div>
 
         <a

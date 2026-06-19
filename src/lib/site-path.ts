@@ -3,6 +3,7 @@ const rawSiteOrigin = import.meta.env.VITE_SITE_ORIGIN ?? "https://nutrivalife.r
 
 export const SITE_BASE_PATH = rawBasePath === "/" ? "" : rawBasePath.replace(/\/$/, "");
 export const SITE_ORIGIN = rawSiteOrigin.replace(/\/$/, "");
+export const SITE_DOMAIN = SITE_ORIGIN.replace(/^https?:\/\//, "");
 
 export function sitePath(path: string) {
   if (/^(https?:|mailto:|tel:)/.test(path)) {
