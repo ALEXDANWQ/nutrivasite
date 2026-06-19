@@ -7,11 +7,7 @@ import { Progress } from "@/components/landing/Progress";
 import { Products } from "@/components/landing/Products";
 import { CTA } from "@/components/landing/CTA";
 import { Footer } from "@/components/landing/Footer";
-import { Audience } from "@/components/landing/Audience";
-import { Trust } from "@/components/landing/Trust";
-import { HowItWorks } from "@/components/landing/HowItWorks";
 import { LandingFAQ } from "@/components/landing/LandingFAQ";
-import { MobileStickyCTA } from "@/components/landing/MobileStickyCTA";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { absoluteSiteUrl } from "@/lib/site-path";
 import { RUSTORE } from "@/components/landing/Header";
@@ -115,17 +111,13 @@ function Index() {
       <JsonLd data={homeJsonLd} />
       <Header />
       <Hero />
-      <WhyNutriva />
       <Features />
-      <Audience />
-      <Trust />
-      <HowItWorks />
+      <WhyNutriva />
       <Progress />
       <Products />
-      <LandingFAQ />
       <CTA />
+      <LandingFAQ />
       <Footer />
-      <MobileStickyCTA />
     </main>
   );
 }

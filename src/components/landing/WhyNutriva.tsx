@@ -4,20 +4,15 @@ import { IconBolt, IconEye, IconLeaf } from "./Icons";
 const items = [
   {
     icon: IconBolt,
-    title: "Понимайте рацион",
-    text: "Видите, что вы едите, сколько калорий получаете и где рацион чаще всего выходит за цель.",
+    title: "Быстро",
+    text: "Добавление продуктов занимает минимум времени.",
     n: "01",
   },
-  {
-    icon: IconEye,
-    title: "Следите за динамикой",
-    text: "Вес, вода, БЖУ и прогресс находятся рядом, поэтому картину проще оценивать целиком.",
-    n: "02",
-  },
+  { icon: IconEye, title: "Понятно", text: "Все главные показатели видны сразу.", n: "02" },
   {
     icon: IconLeaf,
-    title: "Действуйте спокойно",
-    text: "NUTRIVA помогает наблюдать и корректировать привычки без жестких обещаний и давления.",
+    title: "Спокойно",
+    text: "Интерфейс не давит, а помогает сохранять ритм.",
     n: "03",
   },
 ];
@@ -33,16 +28,15 @@ export function WhyNutriva() {
       <div className="mx-auto max-w-6xl px-4 text-center sm:px-5 md:px-8">
         <Reveal>
           <p className="text-[11px] uppercase tracking-[0.22em] text-primary-deep font-bold mb-4 sm:mb-5">
-            — Зачем нужен NUTRIVA
+            — Почему NUTRIVA
           </p>
           <h2 className="font-display text-balance text-[32px] sm:text-[42px] md:text-[58px] leading-[1] sm:leading-[0.98] font-black tracking-[-0.035em] max-w-3xl mx-auto">
-            Понимайте рацион, а не гадайте
+            Без лишнего. Только то, что{" "}
+            <span className="font-serif italic font-normal text-primary-deep">помогает.</span>
           </h2>
           <p className="mt-5 sm:mt-6 text-[15px] sm:text-[17px] text-muted-foreground max-w-2xl mx-auto text-balance leading-relaxed">
-            Когда питание не записано, сложно понять, почему вес стоит, почему не хватает белка или
-            почему дневная норма постоянно превышается. NUTRIVA помогает видеть картину целиком: что
-            вы едите, сколько калорий получаете, как меняется вес и насколько стабильно вы
-            двигаетесь к цели.
+            NUTRIVA создана для ежедневного использования: быстрый ввод еды, понятные показатели,
+            аккуратная статистика и спокойный интерфейс без давления.
           </p>
         </Reveal>
 

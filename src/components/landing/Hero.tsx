@@ -48,30 +48,33 @@ export function Hero() {
             >
               <span className="relative rounded-full bg-primary w-1.5 h-1.5" />
             </motion.span>
-            Android-приложение для контроля питания
+            Premium · Health-tech
           </motion.div>
 
-          <h1 className="font-display text-balance text-[34px] font-black leading-[1.02] sm:text-[50px] sm:leading-[0.98] md:text-[66px] lg:text-[76px]">
+          <h1 className="font-display text-balance text-[36px] font-black leading-[0.96] tracking-[-0.045em] sm:text-[52px] sm:leading-[0.95] md:text-[68px] lg:text-[80px]">
+            {["Умный", "контроль", "питания"].map((word, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, delay: 0.1 + i * 0.08, ease }}
+                className="block overflow-hidden"
+              >
+                {word}
+              </motion.span>
+            ))}
             <motion.span
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.1, ease }}
-              className="block"
-            >
-              NUTRIVA — счетчик калорий, дневник питания и контроль БЖУ
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.22, ease }}
-              className="mt-2 block font-serif italic font-normal"
+              transition={{ duration: 0.9, delay: 0.34, ease }}
+              className="block font-serif italic font-normal tracking-[-0.02em]"
               style={{
                 backgroundImage: "linear-gradient(135deg, #36C978 0%, #159957 60%, #0B6B3E 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
             >
-              без лишнего стресса
+              каждый день.
             </motion.span>
           </h1>
 
@@ -81,8 +84,8 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.45, ease }}
             className="mt-5 sm:mt-7 text-[15px] sm:text-[17px] md:text-[19px] text-slate-600 max-w-xl mx-auto lg:mx-0 leading-[1.55] text-balance"
           >
-            Удобное Android-приложение, которое помогает следить за питанием, водой, весом и
-            ежедневным прогрессом без сложных таблиц и лишнего стресса.
+            Калории, БЖУ, вода, вес и прогресс — в одном чистом и спокойном приложении. Без
+            перегруза, без сложных таблиц, без лишнего шума.
           </motion.p>
 
           <motion.div
@@ -103,13 +106,13 @@ export function Hero() {
                 className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"
               />
               <IconArrowDown className="w-4 h-4 relative" />
-              <span className="relative">Скачать NUTRIVA</span>
+              <span className="relative">Скачать в RuStore</span>
             </a>
             <a
               href="#features"
               className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-[color:var(--hairline)] bg-white px-6 text-[14px] font-semibold transition-all hover:bg-secondary sm:rounded-full sm:px-7 sm:py-4 sm:text-[15px]"
             >
-              Посмотреть возможности
+              Возможности
               <IconArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
             </a>
           </motion.div>
@@ -130,15 +133,11 @@ export function Hero() {
                   />
                 ))}
               </div>
-              <span className="font-medium">Калории и БЖУ</span>
+              <span className="font-medium">Уже в RuStore</span>
             </div>
             <div className="hidden sm:flex items-center gap-1.5">
-              <span className="text-foreground font-bold text-sm">Дневник</span>
-              <span>· питание каждый день</span>
-            </div>
-            <div className="hidden md:flex items-center gap-1.5">
-              <span className="text-foreground font-bold text-sm">Вода и вес</span>
-              <span>· в одном месте</span>
+              <span className="text-foreground font-bold text-sm">4.8</span>
+              <span>· Чистый интерфейс</span>
             </div>
           </motion.div>
         </div>

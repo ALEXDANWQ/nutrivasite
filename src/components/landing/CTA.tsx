@@ -43,11 +43,8 @@ export function CTA() {
                 style={{ background: "linear-gradient(135deg, #36C978 0%, #159957 100%)" }}
               >
                 <IconArrowDown className="w-4 h-4 sm:w-5 sm:h-5" />
-                Скачать NUTRIVA
+                Скачать в RuStore
               </a>
-              <p className="mt-3 text-[12.5px] font-medium text-muted-foreground">
-                Скачивание займет меньше минуты
-              </p>
             </div>
           </div>
         </Reveal>

@@ -18,9 +18,7 @@ export function Header() {
 
   const sections = [
     { href: sitePath("/#features"), label: "Возможности" },
-    { href: sitePath("/#how-it-works"), label: "Как работает" },
     { href: sitePath("/#progress"), label: "Прогресс" },
-    { href: sitePath("/#faq"), label: "FAQ" },
   ];
 
   return (
