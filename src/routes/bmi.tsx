@@ -5,10 +5,21 @@ import { Footer } from "@/components/landing/Footer";
 import { Header, RUSTORE } from "@/components/landing/Header";
 import { IconArrowDown, IconBolt, IconLeaf, IconScale } from "@/components/landing/Icons";
 import { absoluteSiteUrl } from "@/lib/site-path";
+import { buildSeoKeywords } from "@/lib/seo";
 
 const bmiTitle = "Расчет ИМТ онлайн — калькулятор индекса массы тела NUTRIVA";
 const bmiDescription =
   "Рассчитайте индекс массы тела онлайн и используйте NUTRIVA для спокойного контроля веса, питания, воды и прогресса.";
+const bmiKeywords = buildSeoKeywords([
+  "расчет ИМТ онлайн",
+  "калькулятор ИМТ онлайн",
+  "индекс массы тела онлайн",
+  "рассчитать ИМТ",
+  "норма веса",
+  "нормализация веса",
+  "контроль веса приложение",
+  "ИМТ калькулятор для похудения",
+]);
 
 export const Route = createFileRoute("/bmi")({
   head: () => ({
@@ -18,6 +29,7 @@ export const Route = createFileRoute("/bmi")({
         name: "description",
         content: bmiDescription,
       },
+      { name: "keywords", content: bmiKeywords },
       { property: "og:title", content: bmiTitle },
       { property: "og:description", content: bmiDescription },
       { property: "og:type", content: "website" },

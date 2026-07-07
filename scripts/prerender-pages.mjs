@@ -96,18 +96,27 @@ function buildSitemap() {
   ];
 
   const urls = sitemapRoutes
-    .map(
-      ({ route, priority, changefreq }) => `  <url>
+    .map(({ route, priority, changefreq }) => {
+      const imageEntry =
+        route === "/"
+          ? `
+    <image:image>
+      <image:loc>${absoluteUrl("/og-image.svg")}</image:loc>
+      <image:title>NUTRIVA — счетчик калорий и дневник питания</image:title>
+    </image:image>`
+          : "";
+
+      return `  <url>
     <loc>${absoluteUrl(route)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${changefreq}</changefreq>
-    <priority>${priority}</priority>
-  </url>`,
-    )
+    <priority>${priority}</priority>${imageEntry}
+  </url>`;
+    })
     .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls}
 </urlset>
 `;
@@ -116,6 +125,19 @@ ${urls}
 function buildRobotsTxt() {
   return `User-agent: *
 Allow: /
+Allow: /assets/
+Allow: /articles/
+Allow: /bmi
+Allow: /favicon.ico
+Allow: /favicon-16x16.png
+Allow: /favicon-32x32.png
+Allow: /favicon-48x48.png
+Allow: /favicon-256x256.png
+Allow: /apple-touch-icon.png
+Allow: /android-chrome-192x192.png
+Allow: /android-chrome-512x512.png
+Allow: /nutriva-icon.png
+Allow: /site.webmanifest
 
 Sitemap: ${absoluteUrl("/sitemap.xml")}
 Host: ${siteDomain ?? new URL(siteOrigin).host}

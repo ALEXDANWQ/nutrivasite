@@ -6,6 +6,7 @@ import { IconArrowDown, IconArrowRight } from "@/components/landing/Icons";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getArticleBySlug, getRelatedArticles } from "@/lib/articles";
 import { absoluteSiteUrl, sitePath } from "@/lib/site-path";
+import { buildSeoKeywords, SEO_UPDATED_DATE } from "@/lib/seo";
 
 export const Route = createFileRoute("/articles/$slug")({
   loader: ({ params }) => {
@@ -25,11 +26,20 @@ export const Route = createFileRoute("/articles/$slug")({
     }
 
     const articleUrl = absoluteSiteUrl(`/articles/${article.slug}`);
+    const articleKeywords = buildSeoKeywords([
+      article.h1,
+      article.title,
+      "статья NUTRIVA",
+      "советы по питанию",
+      "контроль питания",
+      ...article.sections.map((section) => section.heading),
+    ]);
 
     return {
       meta: [
         { title: article.title },
         { name: "description", content: article.description },
+        { name: "keywords", content: articleKeywords },
         { property: "og:title", content: article.title },
         { property: "og:description", content: article.description },
         { property: "og:type", content: "article" },
@@ -62,7 +72,7 @@ function ArticlePage() {
         inLanguage: "ru-RU",
         mainEntityOfPage: articleUrl,
         datePublished: "2026-06-19",
-        dateModified: "2026-06-19",
+        dateModified: SEO_UPDATED_DATE,
         author: {
           "@type": "Organization",
           name: "NUTRIVA",
