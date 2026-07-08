@@ -98,6 +98,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-title", content: "NUTRIVA" },
       { name: "theme-color", content: "#19a45b" },
       { name: "msapplication-TileColor", content: "#19a45b" },
+      { name: "msapplication-TileImage", content: sitePath("/mstile-150x150.png") },
+      { name: "msapplication-config", content: sitePath("/browserconfig.xml") },
       { name: "format-detection", content: "telephone=no" },
       { name: "color-scheme", content: "light" },
       { property: "og:title", content: "NUTRIVA — счетчик калорий и дневник питания" },
@@ -119,8 +121,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: absoluteSiteUrl("/og-image.svg") },
     ],
     links: [
-      { rel: "icon", href: sitePath("/favicon.ico"), sizes: "any" },
-      { rel: "icon", type: "image/svg+xml", href: sitePath("/favicon.svg") },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "48x48",
+        href: sitePath("/favicon-48x48.png"),
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "96x96",
+        href: sitePath("/favicon-96x96.png"),
+      },
+      { rel: "icon", href: sitePath("/favicon.ico"), sizes: "16x16 32x32 48x48 256x256" },
       {
         rel: "icon",
         type: "image/png",
@@ -133,12 +146,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         sizes: "16x16",
         href: sitePath("/favicon-16x16.png"),
       },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "192x192",
+        href: sitePath("/android-chrome-192x192.png"),
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "512x512",
+        href: sitePath("/android-chrome-512x512.png"),
+      },
+      { rel: "icon", type: "image/svg+xml", href: sitePath("/favicon.svg") },
       { rel: "shortcut icon", href: sitePath("/favicon.ico") },
       {
         rel: "apple-touch-icon",
         sizes: "180x180",
         href: sitePath("/apple-touch-icon.png"),
       },
+      { rel: "mask-icon", href: sitePath("/safari-pinned-tab.svg"), color: "#19a45b" },
       { rel: "manifest", href: sitePath("/site.webmanifest") },
       {
         rel: "stylesheet",
