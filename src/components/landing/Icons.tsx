@@ -35,7 +35,10 @@ export const IconDiary = (p: SVGProps<SVGSVGElement>) =>
 export const IconFlame = (p: SVGProps<SVGSVGElement>) =>
   wrap(
     <>
-      <path {...softFill} d="M12 3.5c1.4 3 4.5 4.3 4.5 8.5a4.5 4.5 0 1 1-9 0c0-2 1-3.5 2.3-4.6-.5 2.6 1.2 3.4 1.2 3.4s-1.2-3 1-7.3z" />
+      <path
+        {...softFill}
+        d="M12 3.5c1.4 3 4.5 4.3 4.5 8.5a4.5 4.5 0 1 1-9 0c0-2 1-3.5 2.3-4.6-.5 2.6 1.2 3.4 1.2 3.4s-1.2-3 1-7.3z"
+      />
       <path d="M12 3.5c1.4 3 4.5 4.3 4.5 8.5a4.5 4.5 0 1 1-9 0c0-2 1-3.5 2.3-4.6-.5 2.6 1.2 3.4 1.2 3.4s-1.2-3 1-7.3z" />
     </>,
     p,
@@ -74,10 +77,7 @@ export const IconPlus = (p: SVGProps<SVGSVGElement>) =>
 export const IconStar = (p: SVGProps<SVGSVGElement>) =>
   wrap(
     <>
-      <path
-        {...softFill}
-        d="M12 3.5l2.7 5.5 6 .9-4.4 4.3 1 6L12 17.4l-5.4 2.8 1-6L3.3 9.9l6-.9z"
-      />
+      <path {...softFill} d="M12 3.5l2.7 5.5 6 .9-4.4 4.3 1 6L12 17.4l-5.4 2.8 1-6L3.3 9.9l6-.9z" />
       <path d="M12 3.5l2.7 5.5 6 .9-4.4 4.3 1 6L12 17.4l-5.4 2.8 1-6L3.3 9.9l6-.9z" />
     </>,
     p,
@@ -86,7 +86,10 @@ export const IconStar = (p: SVGProps<SVGSVGElement>) =>
 export const IconDrop = (p: SVGProps<SVGSVGElement>) =>
   wrap(
     <>
-      <path {...softFill} d="M12 3c3.5 4.5 6.5 7.8 6.5 11.5a6.5 6.5 0 1 1-13 0C5.5 10.8 8.5 7.5 12 3z" />
+      <path
+        {...softFill}
+        d="M12 3c3.5 4.5 6.5 7.8 6.5 11.5a6.5 6.5 0 1 1-13 0C5.5 10.8 8.5 7.5 12 3z"
+      />
       <path d="M12 3c3.5 4.5 6.5 7.8 6.5 11.5a6.5 6.5 0 1 1-13 0C5.5 10.8 8.5 7.5 12 3z" />
       <path d="M9 14a3 3 0 0 0 2 3" strokeOpacity={0.5} />
     </>,
@@ -152,7 +155,10 @@ export const IconArrowRight = (p: SVGProps<SVGSVGElement>) =>
 export const IconBottle = (p: SVGProps<SVGSVGElement>) =>
   wrap(
     <>
-      <path {...softFill} d="M9 3h6v2.5c0 .8.3 1.5.9 2L17 9.2c.6.6.9 1.4.9 2.2V19a2 2 0 0 1-2 2H8.1a2 2 0 0 1-2-2v-7.6c0-.8.3-1.6.9-2.2L8.1 7.5c.6-.5.9-1.2.9-2V3z" />
+      <path
+        {...softFill}
+        d="M9 3h6v2.5c0 .8.3 1.5.9 2L17 9.2c.6.6.9 1.4.9 2.2V19a2 2 0 0 1-2 2H8.1a2 2 0 0 1-2-2v-7.6c0-.8.3-1.6.9-2.2L8.1 7.5c.6-.5.9-1.2.9-2V3z"
+      />
       <path d="M9 3h6v2.5c0 .8.3 1.5.9 2L17 9.2c.6.6.9 1.4.9 2.2V19a2 2 0 0 1-2 2H8.1a2 2 0 0 1-2-2v-7.6c0-.8.3-1.6.9-2.2L8.1 7.5c.6-.5.9-1.2.9-2V3z" />
       <path d="M6.5 13.5h11" strokeOpacity={0.5} />
     </>,

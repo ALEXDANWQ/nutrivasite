@@ -12,11 +12,13 @@ export function Progress() {
           <h2 className="font-display text-balance text-[32px] font-black leading-[1] tracking-[-0.035em] sm:text-[42px] sm:leading-[0.98] md:text-[58px]">
             Видите прогресс,
             <br />
-            <span className="font-serif font-normal italic text-primary-deep">а не просто цифры.</span>
+            <span className="font-serif font-normal italic text-primary-deep">
+              а не просто цифры.
+            </span>
           </h2>
           <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-muted-foreground sm:mt-6 sm:text-[17px]">
-            Следите за весом, водой, калориями и БЖУ в понятной статистике. NUTRIVA помогает замечать динамику и
-            держать питание под контролем.
+            Следите за весом, водой, калориями и БЖУ в понятной статистике. NUTRIVA помогает
+            замечать динамику и держать питание под контролем.
           </p>
           <div className="mt-7 grid max-w-md grid-cols-3 gap-2.5 sm:mt-8 sm:gap-4">
             {[
@@ -26,7 +28,9 @@ export function Progress() {
             ].map((stat) => (
               <div key={stat.label}>
                 <p className="text-xl font-bold tracking-tight sm:text-2xl">{stat.value}</p>
-                <p className="mt-1 text-[11px] leading-tight text-muted-foreground sm:text-xs">{stat.label}</p>
+                <p className="mt-1 text-[11px] leading-tight text-muted-foreground sm:text-xs">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>

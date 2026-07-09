@@ -18,7 +18,9 @@ export function Products() {
           </p>
           <h2 className="font-display text-balance text-[32px] sm:text-[42px] md:text-[58px] leading-[1] sm:leading-[0.98] font-black tracking-[-0.035em]">
             Добавляйте продукты{" "}
-            <span className="font-serif italic font-normal text-primary-deep">так, как удобно.</span>
+            <span className="font-serif italic font-normal text-primary-deep">
+              так, как удобно.
+            </span>
           </h2>
           <div className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {cards.map(({ icon: Icon, t }) => (
@@ -36,7 +38,9 @@ export function Products() {
                 >
                   <Icon className="w-[18px] h-[18px] sm:w-5 sm:h-5" />
                 </div>
-                <span className="text-[13.5px] sm:text-[14px] font-semibold tracking-tight leading-snug">{t}</span>
+                <span className="text-[13.5px] sm:text-[14px] font-semibold tracking-tight leading-snug">
+                  {t}
+                </span>
               </div>
             ))}
           </div>
@@ -44,8 +48,11 @@ export function Products() {
 
         <Reveal delay={0.1}>
           <div className="relative">
-            <div className="absolute inset-0 -m-8 rounded-[3rem] -z-10 blur-3xl opacity-70"
-              style={{ background: "radial-gradient(circle at 70% 30%, #D9F1E3 0%, transparent 60%)" }}
+            <div
+              className="absolute inset-0 -m-8 rounded-[3rem] -z-10 blur-3xl opacity-70"
+              style={{
+                background: "radial-gradient(circle at 70% 30%, #D9F1E3 0%, transparent 60%)",
+              }}
             />
             <div className="rounded-3xl sm:rounded-[2rem] bg-white border border-[color:var(--hairline)] shadow-elevated p-5 sm:p-7 md:p-9 max-w-md mx-auto">
               <div className="flex items-center gap-3 sm:gap-4">
@@ -53,7 +60,8 @@ export function Products() {
                   className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 rounded-2xl flex items-center justify-center text-primary-deep"
                   style={{
                     background: "linear-gradient(150deg, #F2FBF5 0%, #DDF2E5 100%)",
-                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9), 0 10px 24px -12px rgba(21,153,87,0.35)",
+                    boxShadow:
+                      "inset 0 1px 0 rgba(255,255,255,0.9), 0 10px 24px -12px rgba(21,153,87,0.35)",
                   }}
                 >
                   <IconBottle className="w-7 h-7 sm:w-8 sm:h-8" />
@@ -65,7 +73,9 @@ export function Products() {
                   <p className="font-bold text-[17px] sm:text-[19px] leading-tight tracking-tight mt-0.5 truncate">
                     Греческий йогурт
                   </p>
-                  <p className="text-[12px] sm:text-[13px] text-muted-foreground mt-0.5">120 ккал · 100 г</p>
+                  <p className="text-[12px] sm:text-[13px] text-muted-foreground mt-0.5">
+                    120 ккал · 100 г
+                  </p>
                 </div>
               </div>
 
@@ -80,7 +90,9 @@ export function Products() {
                     className="rounded-xl p-2.5 sm:p-3 text-center border border-[color:var(--hairline)]"
                     style={{ background: "linear-gradient(180deg, #FAFBFC 0%, #F4F6F7 100%)" }}
                   >
-                    <p className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider">{m.l}</p>
+                    <p className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider">
+                      {m.l}
+                    </p>
                     <p className="font-bold mt-0.5 text-[13px] sm:text-base">{m.v}</p>
                   </div>
                 ))}
