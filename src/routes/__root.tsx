@@ -123,43 +123,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       {
         rel: "icon",
-        type: "image/png",
-        sizes: "48x48",
-        href: sitePath("/favicon-48x48.png"),
+        type: "image/x-icon",
+        href: absoluteSiteUrl("/favicon.ico"),
       },
-      {
-        rel: "icon",
-        type: "image/png",
-        sizes: "96x96",
-        href: sitePath("/favicon-96x96.png"),
-      },
-      { rel: "icon", href: sitePath("/favicon.ico"), sizes: "16x16 32x32 48x48 256x256" },
-      {
-        rel: "icon",
-        type: "image/png",
-        sizes: "32x32",
-        href: sitePath("/favicon-32x32.png"),
-      },
-      {
-        rel: "icon",
-        type: "image/png",
-        sizes: "16x16",
-        href: sitePath("/favicon-16x16.png"),
-      },
-      {
-        rel: "icon",
-        type: "image/png",
-        sizes: "192x192",
-        href: sitePath("/android-chrome-192x192.png"),
-      },
-      {
-        rel: "icon",
-        type: "image/png",
-        sizes: "512x512",
-        href: sitePath("/android-chrome-512x512.png"),
-      },
-      { rel: "icon", type: "image/svg+xml", href: sitePath("/favicon.svg") },
-      { rel: "shortcut icon", href: sitePath("/favicon.ico") },
       {
         rel: "apple-touch-icon",
         sizes: "180x180",
