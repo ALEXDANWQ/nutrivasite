@@ -26,7 +26,6 @@ const articleSlugs = [
 const routes = [
   { route: "/", output: "index.html" },
   { route: "/bmi", output: "bmi/index.html" },
-  { route: "/tarify", output: "tarify/index.html" },
   ...articleSlugs.map((slug) => ({
     route: `/articles/${slug}`,
     output: `articles/${slug}/index.html`,
@@ -89,7 +88,6 @@ function buildSitemap() {
   const sitemapRoutes = [
     { route: "/", priority: "1.0", changefreq: "weekly" },
     { route: "/bmi", priority: "0.6", changefreq: "monthly" },
-    { route: "/tarify", priority: "0.7", changefreq: "monthly" },
     ...articleSlugs.map((slug) => ({
       route: `/articles/${slug}`,
       priority: slug === "kak-schitat-kalorii" ? "0.8" : "0.7",
@@ -98,27 +96,18 @@ function buildSitemap() {
   ];
 
   const urls = sitemapRoutes
-    .map(({ route, priority, changefreq }) => {
-      const imageEntry =
-        route === "/"
-          ? `
-    <image:image>
-      <image:loc>${absoluteUrl("/og-image.svg")}</image:loc>
-      <image:title>NUTRIVA — счетчик калорий и дневник питания</image:title>
-    </image:image>`
-          : "";
-
-      return `  <url>
+    .map(
+      ({ route, priority, changefreq }) => `  <url>
     <loc>${absoluteUrl(route)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${changefreq}</changefreq>
-    <priority>${priority}</priority>${imageEntry}
-  </url>`;
-    })
+    <priority>${priority}</priority>
+  </url>`,
+    )
     .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls}
 </urlset>
 `;
@@ -127,26 +116,6 @@ ${urls}
 function buildRobotsTxt() {
   return `User-agent: *
 Allow: /
-Allow: /assets/
-Allow: /articles/
-Allow: /bmi
-Allow: /favicon.ico
-Allow: /favicon-16x16.png
-Allow: /favicon-32x32.png
-Allow: /favicon-48x48.png
-Allow: /favicon-96x96.png
-Allow: /favicon-256x256.png
-Allow: /favicon.svg
-Allow: /apple-touch-icon.png
-Allow: /android-chrome-192x192.png
-Allow: /android-chrome-512x512.png
-Allow: /maskable-icon-192x192.png
-Allow: /maskable-icon-512x512.png
-Allow: /mstile-150x150.png
-Allow: /safari-pinned-tab.svg
-Allow: /browserconfig.xml
-Allow: /nutriva-icon.png
-Allow: /site.webmanifest
 
 Sitemap: ${absoluteUrl("/sitemap.xml")}
 Host: ${siteDomain ?? new URL(siteOrigin).host}

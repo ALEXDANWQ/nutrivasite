@@ -13,7 +13,6 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { absoluteSiteUrl } from "@/lib/site-path";
 import { RUSTORE } from "@/components/landing/Header";
 import { landingFaqs } from "@/lib/landing-faqs";
-import { buildSeoKeywords } from "@/lib/seo";
 
 const homeTitle = "NUTRIVA — счетчик калорий, дневник питания и БЖУ на Android";
 const homeDescription =
@@ -21,19 +20,6 @@ const homeDescription =
 const homeOgTitle = "NUTRIVA — счетчик калорий и дневник питания";
 const homeOgDescription =
   "Следите за калориями, БЖУ, водой, весом и прогрессом в удобном Android-приложении.";
-const homeKeywords = buildSeoKeywords([
-  "скачать NUTRIVA",
-  "NUTRIVA приложение",
-  "счетчик калорий бесплатно",
-  "дневник питания скачать",
-  "приложение калории и БЖУ",
-  "сканер штрихкодов продуктов",
-  "статистика питания",
-  "контроль питания и воды",
-  "приложение для снижения веса",
-  "похудение без жестких диет",
-  "питание и прогресс",
-]);
 const homeJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -43,7 +29,6 @@ const homeJsonLd = {
       name: "NUTRIVA",
       url: absoluteSiteUrl("/"),
       logo: absoluteSiteUrl("/og-image.svg"),
-      sameAs: [RUSTORE],
     },
     {
       "@type": "WebSite",
@@ -58,17 +43,9 @@ const homeJsonLd = {
       name: "NUTRIVA",
       operatingSystem: "Android",
       applicationCategory: "HealthApplication",
-      applicationSubCategory: "NutritionApplication",
       description: "Android-приложение для учета питания, калорий, БЖУ, воды, веса и прогресса.",
       downloadUrl: RUSTORE,
-      installUrl: RUSTORE,
       url: absoluteSiteUrl("/"),
-      inLanguage: "ru-RU",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "RUB",
-      },
     },
     {
       "@type": "FAQPage",
@@ -95,7 +72,8 @@ export const Route = createFileRoute("/")({
       },
       {
         name: "keywords",
-        content: homeKeywords,
+        content:
+          "счетчик калорий, дневник питания, БЖУ, приложение для похудения, контроль веса, учет воды, калории Android, NUTRIVA",
       },
       { property: "og:title", content: homeOgTitle },
       {

@@ -9,16 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TarifyRouteImport } from './routes/tarify'
 import { Route as BmiRouteImport } from './routes/bmi'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
 
-const TarifyRoute = TarifyRouteImport.update({
-  id: '/tarify',
-  path: '/tarify',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BmiRoute = BmiRouteImport.update({
   id: '/bmi',
   path: '/bmi',
@@ -38,46 +32,35 @@ const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bmi': typeof BmiRoute
-  '/tarify': typeof TarifyRoute
   '/articles/$slug': typeof ArticlesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bmi': typeof BmiRoute
-  '/tarify': typeof TarifyRoute
   '/articles/$slug': typeof ArticlesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/bmi': typeof BmiRoute
-  '/tarify': typeof TarifyRoute
   '/articles/$slug': typeof ArticlesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bmi' | '/tarify' | '/articles/$slug'
+  fullPaths: '/' | '/bmi' | '/articles/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bmi' | '/tarify' | '/articles/$slug'
-  id: '__root__' | '/' | '/bmi' | '/tarify' | '/articles/$slug'
+  to: '/' | '/bmi' | '/articles/$slug'
+  id: '__root__' | '/' | '/bmi' | '/articles/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BmiRoute: typeof BmiRoute
-  TarifyRoute: typeof TarifyRoute
   ArticlesSlugRoute: typeof ArticlesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/tarify': {
-      id: '/tarify'
-      path: '/tarify'
-      fullPath: '/tarify'
-      preLoaderRoute: typeof TarifyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/bmi': {
       id: '/bmi'
       path: '/bmi'
@@ -105,7 +88,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BmiRoute: BmiRoute,
-  TarifyRoute: TarifyRoute,
   ArticlesSlugRoute: ArticlesSlugRoute,
 }
 export const routeTree = rootRouteImport

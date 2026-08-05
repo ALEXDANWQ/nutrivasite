@@ -1,305 +1,346 @@
 import { useMemo, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { Check, ChevronRight, Leaf, LockKeyhole, Minus, Sparkles } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Check, ChevronRight, LockKeyhole, Minus, Sparkles } from "lucide-react";
 import { RUSTORE } from "./Header";
 
 const ease = [0.22, 1, 0.36, 1] as const;
-const freeFeatures = [
-  "Дневник питания и калорий",
-  "Учёт БЖУ и воды",
-  "База продуктов и сканер",
-  "Базовая динамика веса",
-];
-const plusFeatures = [
-  "Расширенная аналитика прогресса",
-  "Персональные рекомендации",
-  "Умное планирование питания",
-  "Приоритетная поддержка",
-];
-type BillingPeriod = "month" | "year";
 
-function VineFrame() {
-  const reduceMotion = useReducedMotion();
-  const transition = { duration: reduceMotion ? 0 : 1.5, ease };
-  const leaves = [
-    [146, 538, -20],
-    [10, 440, 26],
-    [157, 293, -27],
-    [59, 391, 18],
-  ];
-  const plant = (side: "left" | "right") => (
-    <motion.svg
-      viewBox="0 0 250 640"
-      className={`absolute -bottom-3 h-[640px] w-[250px] text-[#4f9870]/45 ${side === "left" ? "-left-6" : "-right-6 scale-x-[-1]"}`}
-      fill="none"
-    >
-      <motion.path
-        d="M23 640C15 543 53 526 65 444c11-72-26-110 20-174 35-48 64-41 69-107"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        initial={{ pathLength: 0, opacity: 0 }}
-        whileInView={{ pathLength: 1, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ ...transition, delay: side === "right" && !reduceMotion ? 0.16 : 0 }}
-      />
-      <motion.path
-        d="M65 500c43-2 59 23 84 42M72 429c-33-18-48-4-61 12M94 345c37 0 54-25 62-49"
-        stroke="currentColor"
-        strokeWidth="1.45"
-        strokeLinecap="round"
-        initial={{ pathLength: 0, opacity: 0 }}
-        whileInView={{ pathLength: 1, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ ...transition, delay: reduceMotion ? 0 : 0.42 }}
-      />
-      {leaves.map(([x, y, rotate], index) => (
-        <motion.ellipse
-          key={`${x}-${y}`}
-          cx={x}
-          cy={y}
-          rx="10"
-          ry="20"
-          fill="currentColor"
-          opacity="0.32"
-          transform={`rotate(${rotate} ${x} ${y})`}
-          initial={{ opacity: 0, scale: 0 }}
-          whileInView={{ opacity: 0.32, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{
-            duration: reduceMotion ? 0 : 0.45,
-            delay: reduceMotion ? 0 : 0.68 + index * 0.1,
-            ease,
-          }}
-        />
-      ))}
-    </motion.svg>
-  );
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-x-0 bottom-0 top-24 hidden overflow-hidden lg:block"
-    >
-      {plant("left")}
-      {plant("right")}
-    </div>
-  );
-}
+const freeFeatures = [
+  "Дневник приёмов пищи и поиск продуктов",
+  "Сканер штрихкодов и ручной ввод блюд",
+  "Подсчёт калорий и КБЖУ за день",
+  "Учёт выпитой воды и запись веса",
+  "Дневная сводка и персональные цели",
+  "Избранные продукты и шаблоны блюд",
+];
+
+const plusFeatures = [
+  "Всё из Бесплатного тарифа",
+  "AI-распознавание блюда и КБЖУ по фото",
+  "AI-диетолог и ответы на вопросы по рациону",
+  "Подробная аналитика питания за периоды",
+  "Графики веса, калорий, белка и воды",
+  "Анализ соблюдения целей и динамики",
+];
+
+type BillingPeriod = "month" | "year";
 
 export function Pricing({ compact = false }: { compact?: boolean }) {
   const [period, setPeriod] = useState<BillingPeriod>("year");
   const isYear = period === "year";
-  const price = useMemo(
+
+  const priceData = useMemo(
     () =>
       isYear
-        ? { value: "1 899", label: "₽ в год", note: "Экономия 489 ₽ за год" }
-        : { value: "199", label: "₽ в месяц", note: "Гибкая помесячная оплата" },
+        ? {
+            value: "2 399",
+            label: "₽ / год",
+            hint: "Выгодный годовой тариф со скидкой 23%",
+          }
+        : {
+            value: "259",
+            label: "₽ / месяц",
+            hint: "Гибкая помесячная оплата без долгосрочных обязательств",
+          },
     [isYear],
   );
+
   return (
     <section
       id="pricing"
-      className={compact ? "relative" : "relative overflow-hidden py-16 sm:py-24 lg:py-30"}
+      className={compact ? "relative" : "relative overflow-hidden py-16 sm:py-24 lg:py-32"}
     >
-      <VineFrame />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-[28%] -z-10 h-[52%] bg-[radial-gradient(ellipse_at_center,rgba(202,244,216,0.42),transparent_66%)]"
-      />
-      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-5 md:px-8">
-        {!compact ? (
+      {/* Ambient background glows & subtle grid mask */}
+      {!compact && (
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            className="absolute -top-40 right-1/4 h-[500px] w-[500px] rounded-full opacity-40 blur-3xl sm:h-[650px] sm:w-[650px]"
+            style={{ background: "radial-gradient(circle, #D9F1E3 0%, transparent 70%)" }}
+            animate={{ x: [0, 25, 0], y: [0, -30, 0], scale: [1, 1.05, 1] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute -bottom-40 left-10 h-[450px] w-[450px] rounded-full opacity-35 blur-3xl sm:h-[600px] sm:w-[600px]"
+            style={{ background: "radial-gradient(circle, #EEF8F1 0%, transparent 70%)" }}
+            animate={{ x: [0, -20, 0], y: [0, 25, 0], scale: [1, 1.04, 1] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          />
+          <div
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, #111 1px, transparent 1px), linear-gradient(to bottom, #111 1px, transparent 1px)",
+              backgroundSize: "48px 48px",
+              maskImage: "radial-gradient(ellipse at center, black 35%, transparent 75%)",
+              WebkitMaskImage: "radial-gradient(ellipse at center, black 35%, transparent 75%)",
+            }}
+          />
+        </div>
+      )}
+
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        {!compact && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, ease }}
-            className="mx-auto max-w-2xl text-center"
+            className="mx-auto max-w-3xl text-center mb-10 sm:mb-14"
           >
-            <h2 className="font-display text-balance text-[34px] font-black leading-[0.98] tracking-[-0.045em] sm:text-[48px] md:text-[58px]">
+            <h2 className="font-display text-balance text-[36px] font-black leading-[1.12] tracking-[-0.04em] sm:text-[52px] md:text-[64px]">
               Выберите свой{" "}
-              <span className="font-serif font-normal italic text-primary-deep">ритм</span>
+              <span className="inline-block px-1.5 font-serif font-normal italic tracking-[-0.02em] text-primary-deep">
+                ритм
+              </span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-slate-600 sm:text-[17px]">
-              Начните бесплатно — и переходите на Plus, когда захотите получить больше ясности и
-              опоры на пути к цели.
+              Начните бесплатно — и переходите на Plus, когда захотите получить умные AI-инструменты
+              и максимальное удобство отслеживания.
             </p>
           </motion.div>
-        ) : null}
-        <div
-          className={`${compact ? "" : "mt-9 sm:mt-12"} grid gap-4 lg:grid-cols-[0.88fr_1.12fr] lg:gap-6`}
-        >
+        )}
+
+        {/* Pricing Cards Grid */}
+        <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch lg:gap-8">
+          {/* Free Card */}
           <motion.article
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, ease }}
-            className="flex min-w-0 flex-col rounded-[2rem] border border-[#e6eee9] bg-white p-5 shadow-[0_24px_80px_-56px_rgba(17,55,40,0.32)] sm:rounded-[2.25rem] sm:p-8 lg:p-9"
+            className="group relative flex h-full min-w-0 flex-col rounded-3xl border border-[color:var(--hairline)] bg-white/90 p-6 shadow-soft backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300/60 hover:shadow-elevated sm:rounded-[2.25rem] sm:p-8 lg:p-9"
           >
-            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary-deep">
-              Свободный доступ
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-primary-deep">
+                  Базовый тариф
+                </p>
+                <h3 className="mt-2 font-display text-[38px] font-black leading-none tracking-tight text-slate-900 sm:text-[46px]">
+                  NUTRIVA
+                </h3>
+              </div>
+              <span className="inline-flex shrink-0 items-center rounded-full border border-emerald-200/60 bg-emerald-50 px-3.5 py-1.5 text-[12px] font-bold text-emerald-800 shadow-xs">
+                Бесплатно
+              </span>
+            </div>
+
+            <p className="mt-4 text-[14px] leading-relaxed text-slate-600 sm:text-[15px]">
+              Удобный стартовый тариф для комфортного ежедневного контроля калорий, воды и рациона
+              без каких-либо плат.
             </p>
-            <h3 className="mt-4 font-serif text-[46px] leading-none tracking-[-0.05em] text-[#11372c] sm:text-[56px]">
-              Бесплатно
-            </h3>
-            <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-slate-600 sm:text-[15px]">
-              Всё нужное, чтобы спокойно начать и собрать первые привычки.
-            </p>
-            <div className="my-6 h-px bg-[#e6eee9] sm:my-7" />
+
+            <div className="my-6 h-px bg-emerald-900/10 sm:my-7" />
+
+            {/* Price Block in Free Card matching Plus styling */}
+            <div className="flex items-center justify-between min-h-[62px]">
+              <div className="flex items-baseline gap-2">
+                <span className="font-serif text-[52px] font-bold leading-none tracking-[0.05em] text-primary-deep sm:text-[62px]">
+                  0
+                </span>
+                <span className="text-[15px] font-semibold text-slate-600">₽ / навсегда</span>
+              </div>
+            </div>
+
+            <div className="my-6 h-px bg-emerald-900/10 sm:my-7" />
+
             <ul className="space-y-3.5 sm:space-y-4">
               {freeFeatures.map((feature) => (
                 <li
                   key={feature}
                   className="flex items-center gap-3 text-[14px] font-medium text-slate-700 sm:text-[15px]"
                 >
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-mint text-primary-deep">
-                    <Check className="h-4 w-4 stroke-[2.4]" />
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100/80 text-emerald-700">
+                    <Check className="h-3.5 w-3.5 stroke-[2.5]" />
                   </span>
                   {feature}
                 </li>
               ))}
             </ul>
+
             <div className="mt-auto pt-8">
-              <p className="mb-3 text-[12px] font-medium text-slate-500">
-                0 ₽ · без привязки карты
+              <p className="mb-3 text-center text-[12px] font-medium text-slate-500">
+                Без привязки банковской карты
               </p>
               <a
                 href={RUSTORE}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-2xl border border-[#17684f] px-5 py-3 text-[15px] font-bold text-[#17684f] transition-all hover:-translate-y-0.5 hover:bg-[#effaf3] active:translate-y-0"
+                className="group/btn inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-2xl border-2 border-emerald-700/25 bg-white px-5 py-3 text-[15px] font-bold text-emerald-800 shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-700/40 hover:bg-emerald-50/60 active:translate-y-0"
               >
-                Начать бесплатно <ChevronRight className="h-4 w-4" />
+                <span>Начать бесплатно</span>
+                <ChevronRight className="h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
               </a>
             </div>
           </motion.article>
+
+          {/* Plus Card */}
           <motion.article
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.78, delay: 0.08, ease }}
-            className="relative flex min-w-0 flex-col overflow-hidden rounded-[2rem] border border-[#bce8ca] bg-[#f7fffa] p-5 text-[#11372c] shadow-[0_32px_100px_-48px_rgba(32,130,79,0.42)] sm:rounded-[2.25rem] sm:p-8 lg:p-9"
+            className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-b from-white via-emerald-50/30 to-emerald-100/20 p-6 shadow-elevated backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/60 sm:rounded-[2.25rem] sm:p-8 lg:p-9"
           >
+            {/* Soft decorative glow overlay */}
             <div
               aria-hidden
-              className="absolute right-0 top-0 h-44 w-44 rounded-full bg-[#cbf5d7]/65 blur-3xl"
+              className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full opacity-50 blur-2xl"
+              style={{ background: "radial-gradient(circle, #36C978 0%, transparent 70%)" }}
             />
-            <div className="relative flex items-start justify-between gap-4">
+
+            <div className="relative flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary-deep">
-                  Подписка
+                <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-primary-deep">
+                  Максимум возможностей
                 </p>
-                <h3 className="mt-4 font-serif text-[46px] leading-none tracking-[-0.05em] sm:text-[56px]">
-                  NUTRIVA <span className="text-primary-deep">Plus</span>
+                <h3 className="mt-2 font-display text-[38px] font-black leading-none tracking-tight text-slate-900 sm:text-[46px]">
+                  NUTRIVA{" "}
+                  <span className="font-serif font-normal italic tracking-[-0.02em] text-primary-deep">
+                    Plus
+                  </span>
                 </h3>
               </div>
-              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-[#c7efd3] bg-white/80 px-3 py-1.5 text-[11px] font-semibold text-primary-deep">
-                <Sparkles className="h-3.5 w-3.5" /> Рекомендуем
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-white/95 px-3.5 py-1.5 text-[12px] font-bold text-primary-deep shadow-xs backdrop-blur-xs">
+                <Sparkles className="h-3.5 w-3.5 fill-primary-deep/20 text-primary-deep animate-pulse" />
+                Рекомендуем
               </span>
             </div>
-            <p className="relative mt-4 max-w-md text-[14px] leading-relaxed text-slate-600 sm:text-[15px]">
-              Больше понимания, мягкая поддержка и инструменты, которые помогают держать курс.
+
+            <p className="mt-4 text-[14px] leading-relaxed text-slate-600 sm:text-[15px]">
+              Максимальное удобство и расширенные возможности: AI-сканирование блюд по фото, умный
+              AI-диетолог и глубокая аналитика.
             </p>
-            <div className="relative my-6 h-px bg-[#d8eddf] sm:my-7" />
-            <div className="relative grid gap-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] sm:items-end">
-              <div>
-                <motion.span
-                  key={price.value}
-                  initial={{ opacity: 0, y: 7 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.28, ease }}
-                  className="block font-serif text-[50px] leading-none tracking-[-0.05em] text-primary-deep sm:text-[60px]"
-                >
-                  {price.value}
-                </motion.span>
-                <span className="mt-1 block text-[13px] font-medium text-slate-600">
-                  {price.label}
-                </span>
+
+            <div className="my-6 h-px bg-emerald-900/10 sm:my-7" />
+
+            {/* Price & Period Switcher Row */}
+            <div className="flex flex-wrap items-center justify-between gap-4 min-h-[62px]">
+              <div className="relative overflow-hidden py-1">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={period}
+                    initial={{ opacity: 0, y: isYear ? -4 : 4, filter: "blur(2px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: isYear ? 4 : -4, filter: "blur(2px)" }}
+                    transition={{ duration: 0.22, ease: "easeOut" }}
+                    className="flex items-baseline gap-2"
+                  >
+                    <span className="font-serif text-[52px] font-bold leading-none tracking-[0.05em] text-primary-deep sm:text-[62px]">
+                      {priceData.value}
+                    </span>
+                    <span className="text-[15px] font-semibold text-slate-600">
+                      {priceData.label}
+                    </span>
+                  </motion.div>
+                </AnimatePresence>
               </div>
-              <p className="rounded-2xl border border-[#d3f0dc] bg-white/85 px-3 py-2 text-[12px] font-bold leading-snug text-primary-deep">
-                {price.note}
-              </p>
-            </div>
-            <div className="relative mt-6 rounded-2xl border border-[#d8eddf] bg-white/82 p-2.5 sm:p-3">
-              <div className="relative h-11">
-                <div className="absolute inset-x-2 top-1/2 h-2 -translate-y-1/2 rounded-full bg-[#e7f1ea]" />
-                <motion.div
-                  className="absolute top-1/2 h-2 -translate-y-1/2 rounded-full bg-[#76d996]"
-                  animate={{ left: isYear ? "50%" : "0.5rem", right: isYear ? "0.5rem" : "50%" }}
-                  transition={{ type: "spring", stiffness: 260, damping: 26 }}
-                />
+
+              {/* Period Switcher placed on the right */}
+              <div
+                role="radiogroup"
+                aria-label="Период оплаты подписки NUTRIVA Plus"
+                className="relative sm:ml-auto inline-flex items-center rounded-full border border-emerald-500/20 bg-white/95 p-1.5 shadow-xs backdrop-blur-md"
+              >
                 <button
                   type="button"
-                  aria-label="Оплата за месяц"
-                  aria-pressed={!isYear}
+                  role="radio"
+                  aria-checked={!isYear}
                   onClick={() => setPeriod("month")}
-                  className="absolute left-0 top-0 flex h-11 w-1/2 items-center justify-start pl-2 focus:outline-none"
+                  className={`relative z-10 inline-flex min-h-10 items-center justify-center rounded-full px-4 text-[13.5px] font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary-deep ${
+                    !isYear ? "text-primary-deep" : "text-slate-500 hover:text-slate-800"
+                  }`}
                 >
-                  <span
-                    className={`${!isYear ? "scale-100 border-[#5ebf7c] bg-white text-primary-deep shadow-[0_5px_14px_-6px_rgba(21,110,62,0.46)]" : "scale-75 border-[#a9cbb4] bg-[#f7fffa] text-transparent"} relative z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all duration-300`}
-                  >
-                    {!isYear ? <Check className="h-4 w-4 stroke-[3]" /> : null}
-                  </span>
+                  {!isYear && (
+                    <motion.div
+                      layoutId="billingPill"
+                      className="absolute inset-0 rounded-full border border-emerald-500/25 bg-gradient-to-r from-emerald-50 to-emerald-100/80 shadow-xs"
+                      transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative z-10">Месяц</span>
                 </button>
+
                 <button
                   type="button"
-                  aria-label="Оплата за год"
-                  aria-pressed={isYear}
+                  role="radio"
+                  aria-checked={isYear}
                   onClick={() => setPeriod("year")}
-                  className="absolute right-0 top-0 flex h-11 w-1/2 items-center justify-end pr-2 focus:outline-none"
+                  className={`relative z-10 inline-flex min-h-10 items-center justify-center gap-1.5 rounded-full px-4 text-[13.5px] font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary-deep ${
+                    isYear ? "text-primary-deep" : "text-slate-500 hover:text-slate-800"
+                  }`}
                 >
-                  <span
-                    className={`${isYear ? "scale-100 border-[#5ebf7c] bg-white text-primary-deep shadow-[0_5px_14px_-6px_rgba(21,110,62,0.46)]" : "scale-75 border-[#a9cbb4] bg-[#f7fffa] text-transparent"} relative z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all duration-300`}
-                  >
-                    {isYear ? <Check className="h-4 w-4 stroke-[3]" /> : null}
+                  {isYear && (
+                    <motion.div
+                      layoutId="billingPill"
+                      className="absolute inset-0 rounded-full border border-emerald-500/25 bg-gradient-to-r from-emerald-50 to-emerald-100/80 shadow-xs"
+                      transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative z-10 flex items-center gap-1.5">
+                    Год
+                    <span className="inline-flex items-center rounded-full bg-emerald-600 px-2 py-0.5 text-[11px] font-extrabold tracking-tight text-white shadow-xs">
+                      -23%
+                    </span>
                   </span>
                 </button>
               </div>
-              <div className="mt-1 grid grid-cols-2 px-1 text-[12px] font-semibold">
-                <span className={!isYear ? "text-primary-deep" : "text-slate-400"}>Ежемесячно</span>
-                <span
-                  className={isYear ? "text-right text-primary-deep" : "text-right text-slate-400"}
-                >
-                  Ежегодно
-                </span>
-              </div>
             </div>
-            <div className="relative my-6 h-px bg-[#d8eddf] sm:my-7" />
-            <ul className="relative grid gap-3.5 sm:grid-cols-2 sm:gap-x-5 sm:gap-y-4">
-              {plusFeatures.map((feature) => (
+
+            <div className="my-6 h-px bg-emerald-900/10 sm:my-7" />
+
+            {/* Benefits List */}
+            <ul className="space-y-3.5 sm:space-y-4">
+              {plusFeatures.map((feature, idx) => (
                 <li
                   key={feature}
                   className="flex items-center gap-3 text-[14px] font-medium text-slate-700 sm:text-[15px]"
                 >
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#d9f7e2] text-primary-deep">
-                    <Check className="h-4 w-4 stroke-[2.5]" />
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white shadow-xs">
+                    <Check className="h-3.5 w-3.5 stroke-[2.8]" />
                   </span>
-                  {feature}
+                  <span className={idx === 0 ? "font-bold text-slate-900" : ""}>{feature}</span>
                 </li>
               ))}
             </ul>
-            <div className="relative mt-auto pt-8">
-              <div className="mb-3 flex items-center gap-2 text-[12px] text-slate-500">
-                <Leaf className="h-3.5 w-3.5 text-primary-deep" /> Все преимущества Plus в одном
-                тарифе
-              </div>
+
+            {/* Footer / Action */}
+            <div className="mt-auto pt-8">
+              <p className="mb-3 flex items-center justify-center gap-1.5 text-center text-[12px] font-medium text-slate-500">
+                <LockKeyhole className="h-3.5 w-3.5 text-slate-400" />
+                Безопасная оплата. Отменить можно в любой момент.
+              </p>
+
               <a
                 href={RUSTORE}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-2xl bg-[#82dfa0] px-5 py-3 text-[15px] font-black text-[#103b2b] shadow-[0_20px_42px_-25px_rgba(48,159,89,0.66)] transition-all hover:-translate-y-0.5 hover:bg-[#9beaaf] active:translate-y-0"
+                className="group/cta relative inline-flex min-h-13 w-full items-center justify-center gap-2 overflow-hidden rounded-2xl px-6 text-[15px] font-bold text-white shadow-elevated transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
+                style={{
+                  background: "linear-gradient(135deg, #36C978 0%, #159957 100%)",
+                }}
               >
-                Выбрать Plus <ChevronRight className="h-4 w-4" />
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={priceData.value}
+                    initial={{ opacity: 0, y: isYear ? -4 : 4, filter: "blur(2px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: isYear ? 4 : -4, filter: "blur(2px)" }}
+                    transition={{ duration: 0.22, ease: "easeOut" }}
+                    className="relative z-10 flex items-center justify-center gap-2"
+                  >
+                    <span>Оформить Plus за {priceData.value} ₽</span>
+                    <ChevronRight className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover/cta:translate-x-1" />
+                  </motion.div>
+                </AnimatePresence>
               </a>
-              <p className="mt-3 flex items-center justify-center gap-1.5 text-center text-[11px] text-slate-500">
-                <LockKeyhole className="h-3.5 w-3.5" /> Безопасная оплата. Отменить можно в любой
-                момент.
-              </p>
             </div>
           </motion.article>
         </div>
-        <div className="mx-auto mt-7 flex max-w-3xl items-center justify-center gap-2 text-center text-[12px] leading-relaxed text-slate-500 sm:text-[13px]">
-          <Minus className="h-4 w-4 shrink-0 text-primary-deep" /> NUTRIVA бережно помогает
-          выстроить привычки — без жёстких ограничений.
+
+        {/* Footer Guarantee Note */}
+        <div className="mx-auto mt-8 flex max-w-2xl items-center justify-center gap-2 text-center text-[12px] leading-relaxed text-slate-500 sm:mt-12 sm:text-[13px]">
+          <Minus className="h-4 w-4 shrink-0 text-primary-deep" />
+          <span>NUTRIVA бережно помогает выстроить привычки — без жёстких ограничений.</span>
         </div>
       </div>
     </section>

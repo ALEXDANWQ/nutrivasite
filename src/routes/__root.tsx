@@ -9,18 +9,11 @@ import {
 import { type ReactNode } from "react";
 
 import { absoluteSiteUrl, sitePath } from "@/lib/site-path";
-import { buildSeoKeywords, ROBOTS_DIRECTIVES } from "@/lib/seo";
 import appCss from "../styles.css?url";
 
 const defaultTitle = "NUTRIVA — счетчик калорий, дневник питания и БЖУ на Android";
 const defaultDescription =
   "Скачайте NUTRIVA — Android-приложение для учета калорий, БЖУ, воды, веса и прогресса.";
-const defaultKeywords = buildSeoKeywords([
-  "лучший счетчик калорий",
-  "скачать счетчик калорий",
-  "скачать дневник питания",
-  "Android приложение для контроля питания",
-]);
 
 function NotFoundComponent() {
   return (
@@ -86,22 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "description",
         content: defaultDescription,
       },
-      {
-        name: "keywords",
-        content: defaultKeywords,
-      },
-      { name: "robots", content: ROBOTS_DIRECTIVES },
-      { name: "googlebot", content: ROBOTS_DIRECTIVES },
-      { name: "yandex", content: ROBOTS_DIRECTIVES },
       { name: "author", content: "NUTRIVA" },
-      { name: "application-name", content: "NUTRIVA" },
-      { name: "apple-mobile-web-app-title", content: "NUTRIVA" },
-      { name: "theme-color", content: "#19a45b" },
-      { name: "msapplication-TileColor", content: "#19a45b" },
-      { name: "msapplication-TileImage", content: sitePath("/mstile-150x150.png") },
-      { name: "msapplication-config", content: sitePath("/browserconfig.xml") },
-      { name: "format-detection", content: "telephone=no" },
-      { name: "color-scheme", content: "light" },
       { property: "og:title", content: "NUTRIVA — счетчик калорий и дневник питания" },
       {
         property: "og:description",
@@ -121,17 +99,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: absoluteSiteUrl("/og-image.svg") },
     ],
     links: [
-      {
-        rel: "icon",
-        type: "image/x-icon",
-        href: absoluteSiteUrl("/favicon.ico"),
-      },
-      {
-        rel: "apple-touch-icon",
-        sizes: "180x180",
-        href: sitePath("/apple-touch-icon.png"),
-      },
-      { rel: "mask-icon", href: sitePath("/safari-pinned-tab.svg"), color: "#19a45b" },
+      { rel: "icon", href: sitePath("/favicon.ico"), sizes: "any" },
+      { rel: "icon", type: "image/png", sizes: "16x16", href: sitePath("/favicon-16x16.png") },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: sitePath("/favicon-32x32.png") },
+      { rel: "icon", type: "image/png", sizes: "48x48", href: sitePath("/favicon-48x48.png") },
+      { rel: "apple-touch-icon", sizes: "180x180", href: sitePath("/apple-touch-icon.png") },
       { rel: "manifest", href: sitePath("/site.webmanifest") },
       {
         rel: "stylesheet",
