@@ -137,8 +137,8 @@ function Index() {
       <Features />
       <WhyNutriva />
       <Progress />
-      <Pricing />
       <Products />
+      <Pricing />
       <CTA />
       <LandingFAQ />
       <Footer />

@@ -23,7 +23,7 @@ export function Footer() {
           transition={{ duration: 0.7, ease }}
           className="py-10 sm:py-12"
         >
-          <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+          <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
             <div className="max-w-md">
               <div className="flex items-center gap-2.5">
                 <img src={logo} alt="NUTRIVA" className="w-7 h-7" />
@@ -65,11 +65,17 @@ export function Footer() {
               >
                 RuStore
               </a>
+            </nav>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-4 border-t border-[color:var(--hairline)] pt-5 text-[11.5px] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+            <p>© 2026 NUTRIVA. Все права защищены.</p>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
               <a
                 href={sitePath("/documents/privacy-policy.pdf")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-foreground/70 hover:text-foreground transition-colors"
+                className="transition-colors hover:text-foreground"
               >
                 Политика конфиденциальности
               </a>
@@ -77,16 +83,12 @@ export function Footer() {
                 href={sitePath("/documents/user-agreement.pdf")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-foreground/70 hover:text-foreground transition-colors"
+                className="transition-colors hover:text-foreground"
               >
                 Пользовательское соглашение
               </a>
-            </nav>
-          </div>
-
-          <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11.5px] text-muted-foreground">
-            <p>© 2026 NUTRIVA. Все права защищены.</p>
-            <p className="font-medium tracking-[0.16em] uppercase">Premium · Health-tech</p>
+              <p className="font-medium tracking-[0.16em] uppercase">Premium · Health-tech</p>
+            </div>
           </div>
         </motion.div>
       </div>
