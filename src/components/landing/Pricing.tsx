@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, ChevronRight, LockKeyhole, Minus, Sparkles } from "lucide-react";
+import { Check, ChevronRight, LockKeyhole, Sparkles } from "lucide-react";
 import { RUSTORE } from "./Header";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -335,12 +335,6 @@ export function Pricing({ compact = false }: { compact?: boolean }) {
               </a>
             </div>
           </motion.article>
-        </div>
-
-        {/* Footer Guarantee Note */}
-        <div className="mx-auto mt-8 flex max-w-2xl items-center justify-center gap-2 text-center text-[12px] leading-relaxed text-slate-500 sm:mt-12 sm:text-[13px]">
-          <Minus className="h-4 w-4 shrink-0 text-primary-deep" />
-          <span>NUTRIVA бережно помогает выстроить привычки — без жёстких ограничений.</span>
         </div>
       </div>
     </section>
