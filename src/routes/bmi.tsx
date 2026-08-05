@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Footer } from "@/components/landing/Footer";
 import { Header, RUSTORE } from "@/components/landing/Header";
@@ -354,13 +354,17 @@ function Field({
   max: number;
   onChange: (nextValue: number) => void;
 }) {
+  const inputId = useId();
   const progress = clamp(((value - min) / (max - min)) * 100, 0, 100);
 
   return (
     <div className="min-w-0">
       <div className="flex items-end justify-between gap-3">
         <div className="min-w-0">
-          <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+          <label
+            htmlFor={inputId}
+            className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground"
+          >
             {label}
           </label>
           <p className="mt-1 text-[13px] text-slate-500">
@@ -369,6 +373,7 @@ function Field({
         </div>
         <div className="flex shrink-0 items-baseline gap-1">
           <input
+            id={inputId}
             type="number"
             value={value}
             min={min}
@@ -382,6 +387,7 @@ function Field({
 
       <input
         type="range"
+        aria-label={label}
         min={min}
         max={max}
         value={value}

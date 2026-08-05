@@ -37,7 +37,7 @@ export function Footer() {
 
             {/* Perfectly Aligned Compact Navigation & Legal Links Column */}
             <div className="flex w-full max-w-[480px] flex-col gap-3 text-[13.5px] sm:text-[14px] md:ml-auto">
-              <nav className="flex flex-wrap items-center justify-between gap-y-2 text-[13.5px] sm:text-[14px]">
+              <nav className="mobile-footer-nav flex flex-wrap items-center justify-between gap-y-2 text-[13.5px] sm:text-[14px]">
                 <a
                   href={sitePath("/#features")}
                   className="text-foreground/70 transition-colors hover:text-foreground"
@@ -71,7 +71,7 @@ export function Footer() {
                 </a>
               </nav>
 
-              <div className="flex flex-wrap items-center justify-between gap-y-2 text-[13.5px] sm:text-[14px]">
+              <div className="mobile-footer-legal flex flex-col gap-1 text-[13.5px] sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-y-2 sm:text-[14px]">
                 <a
                   href={sitePath("/documents/privacy-policy.pdf")}
                   target="_blank"

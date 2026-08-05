@@ -239,7 +239,7 @@ export function Pricing({ compact = false }: { compact?: boolean }) {
               <div
                 role="radiogroup"
                 aria-label="Период оплаты подписки NUTRIVA Plus"
-                className="relative sm:ml-auto inline-flex items-center rounded-full border border-emerald-500/20 bg-white/95 p-1.5 shadow-xs backdrop-blur-md"
+                className="mobile-pricing-period relative inline-flex items-center rounded-full border border-emerald-500/20 bg-white/95 p-1.5 shadow-xs backdrop-blur-md sm:ml-auto"
               >
                 <button
                   type="button"

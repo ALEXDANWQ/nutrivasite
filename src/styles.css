@@ -85,6 +85,7 @@
   }
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -92,6 +93,7 @@
     display: none;
   }
   body {
+    min-width: 320px;
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
@@ -99,6 +101,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
     overflow-y: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -110,10 +113,66 @@
   button,
   input {
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  img,
+  svg {
+    max-width: 100%;
+  }
+  :focus-visible {
+    outline: 3px solid color-mix(in oklab, var(--primary-deep) 68%, white);
+    outline-offset: 3px;
   }
   ::selection {
     background: color-mix(in oklab, var(--primary) 30%, transparent);
     color: var(--foreground);
+  }
+}
+
+@media (max-width: 639px) {
+  .mobile-menu-panel {
+    max-height: calc(100dvh - 4rem - env(safe-area-inset-top));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .mobile-sticky-cta {
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  }
+
+  .mobile-footer-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 0.75rem;
+  }
+
+  .mobile-footer-nav a,
+  .mobile-footer-legal a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+  }
+
+  .mobile-footer-legal {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 374px) {
+  .mobile-support-button {
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-inline: 0.75rem;
+  }
+
+  .mobile-support-button-copy {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .mobile-pricing-period {
+    width: 100%;
+    justify-content: space-between;
   }
 }
 

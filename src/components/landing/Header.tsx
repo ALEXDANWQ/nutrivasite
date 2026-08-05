@@ -75,7 +75,9 @@ export function Header() {
           </a>
           <button
             className="relative flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--hairline)] bg-white/86 shadow-soft backdrop-blur-xl transition-transform active:scale-95 md:hidden"
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpen((currentOpen) => !currentOpen)}
+            aria-controls="mobile-navigation"
+            aria-expanded={open}
             aria-label="Меню"
           >
             <span className="relative block h-4 w-5">
@@ -92,7 +94,10 @@ export function Header() {
 
       {open && (
         <div className="px-4 pb-4 md:hidden">
-          <div className="flex flex-col gap-1 rounded-[1.5rem] border border-[color:var(--hairline)] bg-white/96 p-2 shadow-elevated backdrop-blur-xl">
+          <div
+            id="mobile-navigation"
+            className="mobile-menu-panel flex flex-col gap-1 rounded-[1.5rem] border border-[color:var(--hairline)] bg-white/96 p-2 shadow-elevated backdrop-blur-xl"
+          >
             {sections.map((l) => (
               <a
                 key={l.href}

@@ -112,7 +112,7 @@ function ArticlePage() {
   };
 
   return (
-    <main className="min-h-screen overflow-x-clip bg-background pb-16 sm:pb-0">
+    <main className="min-h-screen overflow-x-clip bg-background pb-[calc(4rem+env(safe-area-inset-bottom))] sm:pb-0">
       <JsonLd data={jsonLd} />
       <Header />
 

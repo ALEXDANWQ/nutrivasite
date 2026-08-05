@@ -122,7 +122,7 @@ export function LandingFAQ() {
             <button
               type="button"
               onClick={handleCopy}
-              className="group relative z-10 inline-flex items-center gap-3 rounded-full border border-emerald-500/20 bg-white/95 px-5 py-2.5 shadow-elevated backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/40 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-primary-deep cursor-pointer"
+              className="mobile-support-button group relative z-10 inline-flex w-full max-w-full items-center justify-center gap-3 rounded-2xl border border-emerald-500/20 bg-white/95 px-4 py-2.5 shadow-elevated backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/40 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-primary-deep cursor-pointer sm:w-auto sm:rounded-full sm:px-5"
               title="Нажмите, чтобы скопировать почту"
             >
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-emerald-500/20 bg-gradient-to-br from-emerald-50 to-emerald-100/80 text-primary-deep shadow-xs transition-transform duration-200 group-hover:scale-105">
@@ -132,7 +132,7 @@ export function LandingFAQ() {
                   <Mail className="h-3.5 w-3.5 stroke-[2.2]" />
                 )}
               </span>
-              <div className="flex items-center gap-1.5 text-[13.5px] sm:text-[14px] whitespace-nowrap">
+              <div className="mobile-support-button-copy flex items-center gap-1.5 text-center text-[13.5px] sm:text-[14px] sm:whitespace-nowrap">
                 <span className="font-bold text-slate-900">Поддержка:</span>
                 <span className="font-semibold text-primary-deep transition-colors group-hover:text-emerald-700">
                   support@nutrivalife.online
