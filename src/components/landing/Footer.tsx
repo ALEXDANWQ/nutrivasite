@@ -53,11 +53,33 @@ export function Footer() {
               >
                 Расчет ИМТ
               </Link>
+              <Link
+                to="/tarify"
+                className="text-foreground/70 hover:text-foreground transition-colors"
+              >
+                Тарифы
+              </Link>
               <a
                 href={sitePath("/#download")}
                 className="text-foreground/70 hover:text-foreground transition-colors"
               >
                 RuStore
+              </a>
+              <a
+                href={sitePath("/documents/privacy-policy.pdf")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground/70 hover:text-foreground transition-colors"
+              >
+                Политика конфиденциальности
+              </a>
+              <a
+                href={sitePath("/documents/user-agreement.pdf")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground/70 hover:text-foreground transition-colors"
+              >
+                Пользовательское соглашение
               </a>
             </nav>
           </div>

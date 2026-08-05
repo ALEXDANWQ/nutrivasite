@@ -8,6 +8,7 @@ import { Products } from "@/components/landing/Products";
 import { CTA } from "@/components/landing/CTA";
 import { Footer } from "@/components/landing/Footer";
 import { LandingFAQ } from "@/components/landing/LandingFAQ";
+import { Pricing } from "@/components/landing/Pricing";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { absoluteSiteUrl } from "@/lib/site-path";
 import { RUSTORE } from "@/components/landing/Header";
@@ -136,6 +137,7 @@ function Index() {
       <Features />
       <WhyNutriva />
       <Progress />
+      <Pricing />
       <Products />
       <CTA />
       <LandingFAQ />

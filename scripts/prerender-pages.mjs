@@ -26,6 +26,7 @@ const articleSlugs = [
 const routes = [
   { route: "/", output: "index.html" },
   { route: "/bmi", output: "bmi/index.html" },
+  { route: "/tarify", output: "tarify/index.html" },
   ...articleSlugs.map((slug) => ({
     route: `/articles/${slug}`,
     output: `articles/${slug}/index.html`,
@@ -88,6 +89,7 @@ function buildSitemap() {
   const sitemapRoutes = [
     { route: "/", priority: "1.0", changefreq: "weekly" },
     { route: "/bmi", priority: "0.6", changefreq: "monthly" },
+    { route: "/tarify", priority: "0.7", changefreq: "monthly" },
     ...articleSlugs.map((slug) => ({
       route: `/articles/${slug}`,
       priority: slug === "kak-schitat-kalorii" ? "0.8" : "0.7",

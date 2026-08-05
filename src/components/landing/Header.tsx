@@ -56,6 +56,13 @@ export function Header() {
           >
             Расчет ИМТ
           </Link>
+          <Link
+            to="/tarify"
+            className="text-sm text-foreground/70 hover:text-foreground transition-colors"
+            activeProps={{ className: "text-foreground font-semibold" }}
+          >
+            Тарифы
+          </Link>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
@@ -103,6 +110,13 @@ export function Header() {
               className="rounded-2xl px-4 py-3 text-[15px] font-medium text-foreground/80 transition-colors active:bg-secondary"
             >
               Расчет ИМТ
+            </Link>
+            <Link
+              to="/tarify"
+              onClick={() => setOpen(false)}
+              className="rounded-2xl px-4 py-3 text-[15px] font-medium text-foreground/80 transition-colors active:bg-secondary"
+            >
+              Тарифы
             </Link>
             <a
               href={RUSTORE}
