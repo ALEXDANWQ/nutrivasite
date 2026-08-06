@@ -73,6 +73,15 @@ export function Footer() {
 
               <div className="mobile-footer-legal flex flex-col gap-1 text-[13.5px] sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-y-2 sm:text-[14px]">
                 <a
+                  href={sitePath("/documents/public-offer.pdf")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-foreground/70 transition-colors hover:text-foreground"
+                >
+                  <FileText className="h-3.5 w-3.5 text-primary-deep" />
+                  Публичная оферта
+                </a>
+                <a
                   href={sitePath("/documents/privacy-policy.pdf")}
                   target="_blank"
                   rel="noopener noreferrer"
