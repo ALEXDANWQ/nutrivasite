@@ -1,7 +1,14 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronRight, LockKeyhole, Sparkles } from "lucide-react";
 import { RUSTORE } from "./Header";
+import { AmbientGlow } from "./AmbientGlow";
+import {
+  formatPrice,
+  PLUS_MONTHLY_PRICE,
+  PLUS_YEARLY_PRICE,
+  PLUS_YEARLY_DISCOUNT,
+} from "@/lib/pricing";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -29,21 +36,10 @@ export function Pricing({ compact = false }: { compact?: boolean }) {
   const [period, setPeriod] = useState<BillingPeriod>("year");
   const isYear = period === "year";
 
-  const priceData = useMemo(
-    () =>
-      isYear
-        ? {
-            value: "2 399",
-            label: "₽ / год",
-            hint: "Выгодный годовой тариф со скидкой 23%",
-          }
-        : {
-            value: "259",
-            label: "₽ / месяц",
-            hint: "Гибкая помесячная оплата без долгосрочных обязательств",
-          },
-    [isYear],
-  );
+  const priceData = {
+    value: formatPrice(isYear ? PLUS_YEARLY_PRICE : PLUS_MONTHLY_PRICE),
+    label: isYear ? "₽ / год" : "₽ / месяц",
+  };
 
   return (
     <section
@@ -53,17 +49,13 @@ export function Pricing({ compact = false }: { compact?: boolean }) {
       {/* Ambient background glows & subtle grid mask */}
       {!compact && (
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-          <motion.div
-            className="absolute -top-40 right-1/4 h-[500px] w-[500px] rounded-full opacity-40 blur-3xl sm:h-[650px] sm:w-[650px]"
+          <AmbientGlow
+            className="absolute -top-40 right-1/4 h-[500px] w-[500px] rounded-full opacity-40 sm:h-[650px] sm:w-[650px]"
             style={{ background: "radial-gradient(circle, #D9F1E3 0%, transparent 70%)" }}
-            animate={{ x: [0, 25, 0], y: [0, -30, 0], scale: [1, 1.05, 1] }}
-            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div
-            className="absolute -bottom-40 left-10 h-[450px] w-[450px] rounded-full opacity-35 blur-3xl sm:h-[600px] sm:w-[600px]"
+          <AmbientGlow
+            className="absolute -bottom-40 left-10 h-[450px] w-[450px] rounded-full opacity-35 sm:h-[600px] sm:w-[600px]"
             style={{ background: "radial-gradient(circle, #EEF8F1 0%, transparent 70%)" }}
-            animate={{ x: [0, -20, 0], y: [0, 25, 0], scale: [1, 1.04, 1] }}
-            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
           />
           <div
             className="absolute inset-0 opacity-[0.03]"
@@ -83,7 +75,7 @@ export function Pricing({ compact = false }: { compact?: boolean }) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, amount: "some" }}
             transition={{ duration: 0.7, ease }}
             className="mx-auto max-w-3xl text-center mb-10 sm:mb-14"
           >
@@ -106,9 +98,9 @@ export function Pricing({ compact = false }: { compact?: boolean }) {
           <motion.article
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            viewport={{ once: true, amount: "some" }}
             transition={{ duration: 0.7, ease }}
-            className="group relative flex h-full min-w-0 flex-col rounded-3xl border border-[color:var(--hairline)] bg-white/90 p-6 shadow-soft backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300/60 hover:shadow-elevated sm:rounded-[2.25rem] sm:p-8 lg:p-9"
+            className="group relative flex h-full min-w-0 flex-col rounded-3xl border border-[color:var(--hairline)] bg-white/95 p-6 shadow-soft transition-[border-color,box-shadow] duration-300 hover:border-emerald-300/60 hover:shadow-elevated sm:rounded-[2.25rem] sm:p-8 lg:p-9"
           >
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -177,9 +169,9 @@ export function Pricing({ compact = false }: { compact?: boolean }) {
           <motion.article
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            viewport={{ once: true, amount: "some" }}
             transition={{ duration: 0.78, delay: 0.08, ease }}
-            className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-b from-white via-emerald-50/30 to-emerald-100/20 p-6 shadow-elevated backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/60 sm:rounded-[2.25rem] sm:p-8 lg:p-9"
+            className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-b from-white via-emerald-50/30 to-emerald-100/20 p-6 shadow-elevated transition-colors duration-300 hover:border-emerald-500/60 sm:rounded-[2.25rem] sm:p-8 lg:p-9"
           >
             {/* Soft decorative glow overlay */}
             <div
@@ -201,7 +193,7 @@ export function Pricing({ compact = false }: { compact?: boolean }) {
                 </h3>
               </div>
               <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-white/95 px-3.5 py-1.5 text-[12px] font-bold text-primary-deep shadow-xs backdrop-blur-xs">
-                <Sparkles className="h-3.5 w-3.5 fill-primary-deep/20 text-primary-deep animate-pulse" />
+                <Sparkles className="h-3.5 w-3.5 fill-primary-deep/20 text-primary-deep" />
                 Рекомендуем
               </span>
             </div>
@@ -215,14 +207,18 @@ export function Pricing({ compact = false }: { compact?: boolean }) {
 
             {/* Price & Period Switcher Row */}
             <div className="flex flex-wrap items-center justify-between gap-4 min-h-[62px]">
-              <div className="relative overflow-hidden py-1">
+              <div
+                className="relative min-w-[230px] overflow-hidden py-1"
+                aria-live="polite"
+                aria-atomic="true"
+              >
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
                     key={period}
-                    initial={{ opacity: 0, y: isYear ? -4 : 4, filter: "blur(2px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: isYear ? 4 : -4, filter: "blur(2px)" }}
-                    transition={{ duration: 0.22, ease: "easeOut" }}
+                    initial={{ opacity: 0, y: isYear ? -4 : 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: isYear ? 4 : -4 }}
+                    transition={{ duration: 0.16, ease: "easeOut" }}
                     className="flex items-baseline gap-2"
                   >
                     <span className="font-serif text-[52px] font-bold leading-none tracking-[0.05em] text-primary-deep sm:text-[62px]">
@@ -279,7 +275,7 @@ export function Pricing({ compact = false }: { compact?: boolean }) {
                   <span className="relative z-10 flex items-center gap-1.5">
                     Год
                     <span className="inline-flex items-center rounded-full bg-emerald-600 px-2 py-0.5 text-[11px] font-extrabold tracking-tight text-white shadow-xs">
-                      -23%
+                      -{PLUS_YEARLY_DISCOUNT}%
                     </span>
                   </span>
                 </button>
@@ -322,10 +318,10 @@ export function Pricing({ compact = false }: { compact?: boolean }) {
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
                     key={priceData.value}
-                    initial={{ opacity: 0, y: isYear ? -4 : 4, filter: "blur(2px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: isYear ? 4 : -4, filter: "blur(2px)" }}
-                    transition={{ duration: 0.22, ease: "easeOut" }}
+                    initial={{ opacity: 0, y: isYear ? -4 : 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: isYear ? 4 : -4 }}
+                    transition={{ duration: 0.16, ease: "easeOut" }}
                     className="relative z-10 flex items-center justify-center gap-2"
                   >
                     <span>Оформить Plus за {priceData.value} ₽</span>

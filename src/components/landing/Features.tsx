@@ -58,7 +58,7 @@ export function Features() {
             const Icon = it.icon;
             return (
               <Reveal key={it.title} delay={(i % 4) * 0.08}>
-                <div className="group relative h-full overflow-hidden rounded-2xl border border-[color:var(--hairline)] bg-white p-4 shadow-soft transition-all duration-[700ms] ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-1.5 hover:shadow-elevated sm:rounded-3xl sm:p-6 md:p-7">
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-[color:var(--hairline)] bg-white p-4 shadow-soft transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-1.5 hover:shadow-elevated sm:rounded-3xl sm:p-6 md:p-7">
                   <div
                     aria-hidden
                     className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
@@ -70,7 +70,7 @@ export function Features() {
 
                   <div className="relative mb-4 sm:mb-6 md:mb-7">
                     <div
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center text-primary-deep transition-all duration-500 group-hover:scale-[1.06]"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center text-primary-deep transition-transform duration-300 group-hover:scale-[1.06]"
                       style={{
                         background: "linear-gradient(150deg, #F2FBF5 0%, #DDF2E5 100%)",
                         boxShadow:

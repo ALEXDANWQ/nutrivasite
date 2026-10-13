@@ -52,6 +52,10 @@ export function PhoneMockup() {
       <motion.img
         src={phone}
         alt="NUTRIVA - скриншот приложения"
+        width={1122}
+        height={1402}
+        fetchPriority="high"
+        decoding="async"
         className="relative z-10 block h-auto w-full object-contain drop-shadow-[0_36px_70px_rgba(17,24,39,0.16)]"
         draggable={false}
         variants={{

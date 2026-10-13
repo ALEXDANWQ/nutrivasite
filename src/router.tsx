@@ -10,6 +10,7 @@ export const getRouter = () => {
     basepath: import.meta.env.BASE_URL,
     context: { queryClient },
     scrollRestoration: true,
+    scrollRestorationBehavior: "instant",
     defaultPreloadStaleTime: 0,
   });
 

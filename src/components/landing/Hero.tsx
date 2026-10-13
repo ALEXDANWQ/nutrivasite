@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { PhoneMockup } from "./PhoneMockup";
 import { RUSTORE } from "./Header";
 import { IconArrowDown, IconArrowRight } from "./Icons";
+import { AmbientGlow } from "./AmbientGlow";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -9,17 +10,13 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden pb-14 pt-20 sm:pb-20 sm:pt-32 md:pb-32 md:pt-40">
       <div aria-hidden className="absolute inset-0 -z-10 pointer-events-none">
-        <motion.div
+        <AmbientGlow
           className="absolute -top-32 -left-20 w-[420px] sm:w-[560px] h-[420px] sm:h-[560px] rounded-full opacity-60"
           style={{ background: "radial-gradient(circle, #EEF8F1 0%, transparent 65%)" }}
-          animate={{ x: [0, 20, 0], y: [0, -26, 0], scale: [1, 1.04, 1] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
-        <motion.div
+        <AmbientGlow
           className="absolute top-40 -right-32 w-[480px] sm:w-[640px] h-[480px] sm:h-[640px] rounded-full opacity-50"
           style={{ background: "radial-gradient(circle, #D9F1E3 0%, transparent 65%)" }}
-          animate={{ x: [0, -24, 0], y: [0, 28, 0], scale: [1, 1.05, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
         />
         <div
           className="absolute inset-0 opacity-[0.04]"
@@ -41,13 +38,9 @@ export function Hero() {
             transition={{ duration: 0.7, ease }}
             className="inline-flex items-center gap-2 rounded-full glass-card px-3 py-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/80 mb-5 sm:mb-7"
           >
-            <motion.span
-              className="relative flex w-1.5 h-1.5"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-            >
+            <span className="relative flex w-1.5 h-1.5">
               <span className="relative rounded-full bg-primary w-1.5 h-1.5" />
-            </motion.span>
+            </span>
             Premium · Health-tech
           </motion.div>
 

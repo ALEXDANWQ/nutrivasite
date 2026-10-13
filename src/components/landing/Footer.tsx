@@ -20,14 +20,14 @@ export function Footer() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={{ once: true, amount: "some" }}
           transition={{ duration: 0.7, ease }}
           className="py-10 sm:py-12"
         >
           <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
             <div className="max-w-md">
               <div className="flex items-center gap-2.5">
-                <img src={logo} alt="NUTRIVA" className="h-7 w-7" />
+                <img src={logo} alt="NUTRIVA" width={1024} height={1024} className="h-7 w-7" />
                 <span className="text-[16px] font-bold tracking-tight">NUTRIVA</span>
               </div>
               <p className="mt-3 text-[13.5px] leading-relaxed text-muted-foreground sm:text-[14px]">

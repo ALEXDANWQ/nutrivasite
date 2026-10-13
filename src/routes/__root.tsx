@@ -6,7 +6,8 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
+import { MotionConfig } from "framer-motion";
 
 import { absoluteSiteUrl, sitePath } from "@/lib/site-path";
 import appCss from "../styles.css?url";
@@ -134,10 +135,24 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    const updateVisibility = () => {
+      document.documentElement.toggleAttribute("data-page-hidden", document.hidden);
+    };
+    updateVisibility();
+    document.addEventListener("visibilitychange", updateVisibility);
+    return () => {
+      document.removeEventListener("visibilitychange", updateVisibility);
+      document.documentElement.removeAttribute("data-page-hidden");
+    };
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <MotionConfig reducedMotion="user" transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
+        <Outlet />
+      </MotionConfig>
     </QueryClientProvider>
   );
 }
