@@ -11,14 +11,46 @@ import {
 } from "framer-motion";
 import { Check, ScanLine } from "lucide-react";
 import plate from "@/assets/recognition-salad-plate.webp";
+import persimmon from "@/assets/badge-persimmon.webp";
+import pomegranate from "@/assets/badge-pomegranate.webp";
+import greens from "@/assets/badge-greens.webp";
+import cheese from "@/assets/badge-cheese.webp";
 
 // All anchors use the same 1000×1000 space as the photograph and leader lines.
 // Plate, labels and lines share one transform so the pointers cannot drift away.
 const ingredients = [
-  { key: "persimmon", name: "Хурма", x: 316, y: 364, line: "M 248 206 H 275 L 316 364" },
-  { key: "pomegranate", name: "Гранат", x: 647, y: 218, line: "M 752 206 H 705 L 647 218" },
-  { key: "greens", name: "Зелень", x: 280, y: 680, line: "M 248 798 H 260 L 280 680" },
-  { key: "cheese", name: "Мягкий сыр", x: 725, y: 669, line: "M 752 798 H 748 L 725 669" },
+  {
+    key: "persimmon",
+    name: "Хурма",
+    image: persimmon,
+    x: 316,
+    y: 364,
+    line: "M 245 225 C 297 228 284 318 316 364",
+  },
+  {
+    key: "pomegranate",
+    name: "Гранат",
+    image: pomegranate,
+    x: 647,
+    y: 218,
+    line: "M 786 135 C 717 134 697 193 647 218",
+  },
+  {
+    key: "greens",
+    name: "Зелень",
+    image: greens,
+    x: 280,
+    y: 680,
+    line: "M 234 765 C 284 752 245 709 280 680",
+  },
+  {
+    key: "cheese",
+    name: "Мягкий сыр",
+    image: cheese,
+    x: 725,
+    y: 669,
+    line: "M 758 831 C 704 828 756 737 725 669",
+  },
 ] as const;
 const spring = { stiffness: 75, damping: 26, mass: 0.8 };
 
@@ -137,7 +169,7 @@ export function FoodRecognition() {
               ))}
             </svg>
 
-            {ingredients.map(({ key, name }, index) => (
+            {ingredients.map(({ key, name, image }, index) => (
               <motion.div
                 key={key}
                 className={`recognition-label recognition-label-${key}`}
@@ -149,8 +181,18 @@ export function FoodRecognition() {
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                <span>{name}</span>
-                <Check aria-hidden="true" size={12} strokeWidth={2.4} />
+                <div className="recognition-glass">
+                  <img
+                    src={image}
+                    alt=""
+                    width={256}
+                    height={256}
+                    decoding="async"
+                    draggable={false}
+                    className="recognition-ingredient"
+                  />
+                  <span>{name}</span>
+                </div>
               </motion.div>
             ))}
           </div>

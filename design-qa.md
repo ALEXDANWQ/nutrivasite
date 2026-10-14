@@ -1,4 +1,4 @@
-# NUTRIVA — распознавание салата
+# NUTRIVA — распознавание салата и стеклянные бейджи
 
 ## Visual truth and scope
 
@@ -59,5 +59,47 @@ Built-in ImageGen background-extraction edit with supplied source: extract only 
 ## Result
 
 All requested visible surfaces implemented and checked. No outstanding actionable P0/P1/P2 finding.
+
+## Latest iteration — glass ingredient badges (2026-10-14)
+
+### Target, evidence and normalization
+
+- Visual truth: `C:/Users/alexd/AppData/Local/Temp/nutriva-glass-badges-before.png`, production hero before this edit, 1440 × 900. Applied the user's explicit revision: asymmetrical positions, lightly translucent glass, dimensional food images beside names. Plate, surrounding typography and CTA layout intentionally unchanged.
+- Final desktop: `C:/Users/alexd/AppData/Local/Temp/nutriva-glass-badges-desktop.png`, 1440 × 900.
+- Focused final composition: `C:/Users/alexd/AppData/Local/Temp/nutriva-glass-badges-detail.png`, 584 × 592 crop of that desktop state.
+- Final mobile: `C:/Users/alexd/AppData/Local/Temp/nutriva-glass-badges-mobile.png`, 390 × 844.
+- Local URL: `http://127.0.0.1:5173/?glass-badges=1`. Codex in-app browser, density 1×, document scrolled to top, entry animations complete. Before/after full desktop images, focused final crop and mobile capture opened together in the same comparison input.
+- Mobile is responsive website content, not a phone-app mock. No device frame/density mismatch introduced.
+
+### Required fidelity surfaces
+
+- Typography: existing site families/hero wrapping unchanged. Ingredient labels use the same dark-green, semibold UI type, 11–14 px; soft-cheese name wraps to two lines only when required on narrow phones. No clipped names in checked sizes.
+- Spacing: upper-right pomegranate higher than persimmon; lower-left greens higher than cheese. Individual badge angles −4°, +3°, +4°, −3°. Small images extend beyond glass edges, alternate left/right, stay within the viewport and leave the salad center unobstructed.
+- Color/tokens: pale mint glass at 64% opacity, white edge highlights, subtle green shadow; blur 12 px desktop / 7 px phone. Plate and target-point colors retained. Dark text remains readable over the blurred rim.
+- Assets: four real raster assets, natural orange persimmon/wedge, ruby pomegranate half/seeds, fresh green leaves, creamy white cheese. All final 256 × 256 WebP files have real alpha, no placeholder icons, baked containers or backgrounds. No distracting halo at intended display size. Four files total 100,666 bytes.
+- Copy: only ingredient names, no duplicated subtitle, confidence value or invented nutrition figures. Ingredient thumbnail images are decorative (`alt=""`); the textual labels and existing figure caption remain accessible.
+
+### Comparison history and findings
+
+1. [P2] Initial CSS build omitted standard `backdrop-filter` because the prefixed declaration came last; computed blur was `none`. This reduced the requested frosted-glass effect. Swapped declaration order. Final browser reports `blur(12px) saturate(1.2)` desktop / `blur(7px) saturate(1.1)` mobile; rebuilt production CSS contains both standard and prefixed declarations. Final focused and mobile captures above are post-fix.
+2. Recomparison against the source hero plus the explicit requested revision: unchanged plate and page hierarchy, organic badge composition, all four thumbnails present. No remaining actionable P0/P1/P2 findings. Intentional differences from the source are the requested revised cards, food thumbnails and softer curved annotation paths.
+
+### Behavior and verification
+
+- Responsive screenshots inspected at 360×800, 390×844, 768×1024, 1024×768, 1440×900 and 1920×1080. No horizontal document overflow or clipped names; all four images loaded.
+- Mouse tilt verified: rotateX 0.313°, rotateY 1.070°, rotateZ 0.214°. Plate, annotations and badges retain one shared parent transform; target ingredient coordinates unchanged.
+- Mobile menu opens/closes on Прогресс. Completed native scroll: section top 79.65 px, body scrollTop 0, hero motion-active false, floating animation paused.
+- No new per-frame React state or global wheel/touch interception. Small raster thumbnails and four fixed glass areas only; no blur animation. Existing reduced-motion/document-hidden guards retained. OS reduced-motion setting not changed.
+- Browser warning/error log empty. ESLint passed with six existing unrelated Fast Refresh warnings, TypeScript passed, production Pages build passed.
+- Asset paths and exact built-in prompts: `docs/ingredient-asset-prompts.md`. Original plate asset is unchanged.
+- Remaining test gap: responsive desktop-browser testing, not physical iOS/Android hardware; Safari was not independently tested.
+
+### Final checklist
+
+- [x] Four correct transparent ingredient images beside readable labels.
+- [x] Asymmetric placement, glass transparency and small rotations.
+- [x] Stable annotation endpoints and lightweight smooth motion retained.
+- [x] Desktop/mobile visual comparison, menu/navigation, console and build checks.
+- [x] No actionable P0/P1/P2 remains.
 
 final result: passed

@@ -427,48 +427,82 @@ html[data-page-hidden] .ambient-glow {
 .recognition-label {
   position: absolute;
   z-index: 3;
+  width: 30%;
+  height: 11%;
+  translate: 0 0 14px;
+  color: #123d2a;
+}
+
+.recognition-glass {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 24.8%;
-  height: 10.1%;
-  padding: 0 10px;
-  border: 1px solid rgb(220 231 222 / 88%);
-  border-radius: 16px;
-  background: rgb(255 255 255 / 93%);
-  box-shadow: 0 10px 28px -15px rgb(26 74 48 / 24%);
-  translate: 0 0 12px;
-  color: #153e2d;
+  gap: 3px;
+  width: 100%;
+  height: 100%;
+  padding: 0 14px 0 8px;
+  border: 1px solid rgb(255 255 255 / 88%);
+  border-radius: 22px;
+  background: rgb(244 255 247 / 64%);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 90%),
+    inset 0 -1px 0 rgb(165 201 177 / 28%),
+    0 12px 24px -12px rgb(24 69 41 / 23%);
+  rotate: var(--badge-angle, 0deg);
 }
 
 .recognition-label span {
-  font-size: 13px;
+  font-size: clamp(11px, 1.05vw, 14px);
   font-weight: 600;
   letter-spacing: -0.02em;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
-.recognition-label svg {
+.recognition-ingredient {
+  position: relative;
   flex-shrink: 0;
-  color: #159957;
+  width: 49%;
+  height: 150%;
+  margin-left: -14%;
+  object-fit: contain;
+  filter: drop-shadow(0 5px 4px rgb(31 60 28 / 17%));
 }
 
 .recognition-label-persimmon {
-  left: 0;
-  top: 15.6%;
+  left: 1%;
+  top: 17%;
+  --badge-angle: -4deg;
 }
 .recognition-label-pomegranate {
-  right: 0;
-  top: 15.6%;
+  right: 1%;
+  top: 8%;
+  --badge-angle: 3deg;
+}
+.recognition-label-pomegranate .recognition-glass,
+.recognition-label-cheese .recognition-glass {
+  flex-direction: row-reverse;
+  padding: 0 8px 0 14px;
+}
+.recognition-label-pomegranate .recognition-ingredient,
+.recognition-label-cheese .recognition-ingredient {
+  margin-left: 0;
+  margin-right: -14%;
 }
 .recognition-label-greens {
   left: 0;
-  top: 74.8%;
+  top: 71%;
+  --badge-angle: 4deg;
 }
 .recognition-label-cheese {
-  right: 0;
-  top: 74.8%;
+  right: 2%;
+  top: 78%;
+  width: 33%;
+  --badge-angle: -3deg;
+}
+.recognition-label-cheese .recognition-ingredient {
+  width: 43%;
 }
 
 .recognition-status {
@@ -617,17 +651,21 @@ html[data-page-hidden] .recognition-scan {
   .recognition-stage {
     width: min(100%, 370px);
   }
-  .recognition-label {
-    border-radius: 12px;
-    gap: 4px;
-    padding: 0 7px;
+  .recognition-glass {
+    border-radius: 15px;
+    padding: 0 7px 0 5px;
+    -webkit-backdrop-filter: blur(7px) saturate(1.1);
+    backdrop-filter: blur(7px) saturate(1.1);
+  }
+  .recognition-label-pomegranate .recognition-glass,
+  .recognition-label-cheese .recognition-glass {
+    padding: 0 5px 0 7px;
   }
   .recognition-label span {
-    font-size: 10px;
+    font-size: 11px;
   }
-  .recognition-label svg {
-    width: 10px;
-    height: 10px;
+  .recognition-label-cheese span {
+    white-space: normal;
   }
   .recognition-status {
     font-size: 10px;
