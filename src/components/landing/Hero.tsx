@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { PhoneMockup } from "./PhoneMockup";
+import { FoodRecognition } from "./FoodRecognition";
 import { RUSTORE } from "./Header";
 import { IconArrowDown, IconArrowRight } from "./Icons";
 import { AmbientGlow } from "./AmbientGlow";
@@ -143,7 +143,7 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.2, ease }}
           className="hero-visual relative order-1 lg:order-2"
         >
-          <PhoneMockup />
+          <FoodRecognition />
         </motion.div>
       </div>
     </section>

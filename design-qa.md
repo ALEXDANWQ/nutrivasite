@@ -1,60 +1,63 @@
-# NUTRIVA — новый первый экран
+# NUTRIVA — распознавание салата
 
-## Scope and visual truth
+## Visual truth and scope
 
-The existing landing page is the product surface. This is a responsive hero illustration, not a replacement mobile application or a literal clone of the promotional poster.
+- Source: `C:/Users/alexd/Downloads/6dc45926c66438d66e522862738ac07f.jpg`, 2193 × 2913 pixels.
+- Target object: only the large foreground pale ceramic plate with a double sage-green rim, persimmon wedges, pomegranate, leafy salad and soft white cheese.
+- User-requested composition: the complete plate on transparent background, actual leaders ending on ingredients, minimal captions, light 3D/parallax, responsive treatment. No phone, app screenshot, invented nutrition figures or unrelated produce.
+- Local route: `http://127.0.0.1:5173/?recognition-preview=2`.
+- Source photo, final focused rendering and mobile rendering were opened together in one comparison input. Comparison is against the requested isolated large plate, not against the surrounding photographic table layout.
 
-- App screen: `C:/Users/alexd/Downloads/Салат и дневник питания.png` — 852 × 1847 pixels. Preserved in full, with its original interface, text, photo and nutrition values.
-- Art direction: `C:/Users/alexd/Downloads/e3eef8e9-be4f-4a9b-967e-c2d286e4ac1f.png` — 941 × 1672 pixels. Rounded pale-mint frame, food photography, glass ingredient labels and subtle depth.
-- Local implementation: `http://127.0.0.1:5173/`.
-- Browser: Codex in-app Browser, through its documented browser API.
+## Evidence and normalization
 
-## Rendered evidence
+- Desktop: `C:/Users/alexd/AppData/Local/Temp/nutriva-recognition-desktop.png`, 1440 × 900 viewport.
+- Mobile: `C:/Users/alexd/AppData/Local/Temp/nutriva-recognition-mobile.png`, 390 × 844 viewport.
+- Focused composition: `C:/Users/alexd/AppData/Local/Temp/nutriva-recognition-detail.png`, approximately 556 × 572 pixels.
+- Browser: Codex in-app Browser, screenshot density 1×, loaded route, completed recognition-entry animation.
+- Final alpha asset: `src/assets/recognition-salad-plate.webp`, 1024 × 1024, 315,824 bytes, alpha channel present. Source PNG retained locally at `tmp/hero-originals/recognition-salad-plate.png`; the user's original JPG is unchanged.
+- Source is portrait and includes a table, utensils and other bowls. The target is a square isolated photo object; this is intentional object extraction, not a full-photo pixel-layout clone. The whole large rim and original food arrangement remain visually recognizable.
 
-- Full desktop: `C:/Users/alexd/AppData/Local/Temp/nutriva-hero-desktop-oct14.png`, 1440 × 900 CSS viewport, browser capture at 1× density.
-- Mobile: `C:/Users/alexd/AppData/Local/Temp/nutriva-hero-mobile-oct14.png`, 390 × 844 CSS viewport, browser capture at 1× density.
-- Short desktop: `C:/Users/alexd/AppData/Local/Temp/nutriva-hero-short-desktop-oct14.png`, 1268 × 714 CSS viewport.
-- Focused visual: `C:/Users/alexd/AppData/Local/Temp/nutriva-hero-detail-oct14.png`, approximately 500 × 730 pixels, covering the complete phone, ingredient labels and caption.
-- State: loaded first screen, original app screen, default yearly website price unaffected. The focused visual and supplied original screenshot were inspected together in a single comparison input; the promotional reference, desktop and mobile captures were also inspected together.
-- Density normalization: compare composition and readability at their intended rendered scale, not screenshot pixels 1:1. The embedded source keeps its 852:1847 aspect ratio. Desktop screen is approximately 303 × 657 CSS pixels; phone frame 317 × 670. Mobile phone frame approximately 268 × 567. Poster header and iOS status-bar chrome are not added to the Android app screen.
+## Five fidelity surfaces
 
-## Required fidelity surfaces
+- Typography: existing Geist/Instrument Serif site copy retained. Only four concise ingredient names and one small Распознано status are added to the visual. Labels use 13 px desktop / 10 px mobile; no clipping in checked viewports.
+- Spacing/layout: complete large plate occupies the right hero column on desktop and follows the headline on mobile. Labels sit near the outer rim, away from the center food. Download CTA remains reachable and visible within the 390 × 844 mobile capture.
+- Colors: natural orange persimmon, red pomegranate, greens, white cheese and sage rim; restrained dark-green leaders, white target markers and near-white annotation cards. Transparent background integrates with the existing page.
+- Image/asset quality: large foreground plate extracted with built-in ImageGen, then targeted alpha-edge cleanup and WebP encoding. Wooden table/board, cloth, utensils, smaller bowl, external fruit and black bowl removed. No new dish or unrelated standalone vegetables used. Complete plate retained; cutout may not be pixel-identical because the editing tool reconstructs obscured rim edges. At intended display sizes no distracting background remnants were observed.
+- Copy/content: Хурма, Гранат, Зелень and Мягкий сыр match visibly present ingredients. Generic soft-cheese name avoids inventing a precise cheese variety. This is a hero illustration of recognition, not a live inference/upload feature. No confidence percentages, calories or weights fabricated.
 
-- Fonts and typography: existing Geist/Instrument Serif site hierarchy retained. App typography is preserved in the supplied bitmap. Ingredient labels use restrained dark-green text; desktop 12 px, mobile 10 px. Long main heading wraps correctly at 360 and 390 px.
-- Spacing and layout: desktop copy and visual remain side by side; on smaller viewports the headline precedes the phone, followed by description and download actions. Frame corners are rounded without distorting the screenshot. Labels stay around the food photo, not over nutrition figures. Short-screen rule keeps the whole device and caption within a 714 px desktop viewport.
-- Colors and tokens: pale mint, near-white glass surfaces and green accents follow the reference and existing NUTRIVA palette. Food assets retain natural red, green and purple colors. Borders and shadows stay soft.
-- Image quality: real supplied screenshot is used, not regenerated UI. Transparent ingredient assets are photorealistic; no visible white boxes or alpha halos. Screenshot WebP is 231,172 bytes; ingredient assets total 160,236 bytes. The screen is not cropped or stretched. All original values remain 250 g / 100 kcal / 2 g protein / 5 g fat / 12 g carbohydrates.
-- Copy and content: existing landing-page messaging retained. New ingredient labels are Помидоры / Огурцы / Лук. Caption is Фото — и всё посчитано, with Plus indicating the paid AI feature. Decorative screen controls belong to the static app screenshot; the real website download CTA remains a working RuStore link.
+## Iteration history
 
-## Comparison history
+1. Initial cutout contained larger stray light fragments outside the plate. A targeted built-in ImageGen cleanup removed the distracting fragments while keeping the complete rim and recognizable arrangement. Original extraction remains in the generated-image archive.
+2. Initial Зелень endpoint landed on red radicchio rather than a green leaf (P2). Moved its target from (281,626) to (280,680) in the shared 1000 × 1000 annotation space. Final focused and mobile captures show the point on the lower-left green leaf cluster.
+3. Final combined comparison of source, focused visual and mobile screen: no remaining actionable P0/P1/P2 issue. Persimmon point is on the left orange wedge; pomegranate on a clearly red seed near the upper-right food; greens on the lower-left green cluster; cheese on a lower-right white piece.
 
-1. Initial desktop capture at 1268 × 714 revealed a P2: the longer replacement screenshot extended below the first viewport. Fixed by bounding desktop frame width by viewport height and modestly adapting existing copy size/spacing on short desktops. Post-fix capture `nutriva-hero-short-desktop-oct14.png` shows the complete phone and caption; measured screen bottom 622 px and caption bottom 666 px.
-2. Initial connectors were angular corner-arrow icons and did not fit the curved reference treatment (P2). Replaced them with the existing icon library's Spline connectors with bright endpoint circles. Final full and focused captures confirm curved connectors placed over the food-photo region.
-3. Final combined comparisons of the reference, screenshot source and implementation find no remaining actionable P0/P1/P2 issue. Deliberate adaptations: original Android screen rather than invented iOS chrome; reduced decorative density rather than the poster's parsley and background foliage; genuine source UI instead of regenerated enlarged nutrition cards.
+## Geometry and animation
 
-## Behavior and responsive checks
+- Plate, leader paths and labels share the same parent perspective transform. Leaders are actual UI SVG annotations in a 1000 × 1000 space, not generic icon connectors; each path terminates at its visible target circle.
+- Scene uses one smooth spring tilt, bounded to 2° X / 2.5° Y / 0.5° Z, and a small shadow. This is a lightweight layered 3D effect on a photo, not a claimed geometric reconstruction/WebGL model.
+- Pointer movement verified in the browser: intermediate values included rotateX 0.38°, rotateY 0.82°, rotateZ 0.16°, showing continuous movement. Reset/cancel handlers return to neutral; pointer bounds are invalidated on scroll.
+- Cursor tilt restricted to fine mouse pointers at desktop widths. Scroll parallax range is 10 px. CSS floating movement is only 3 px; no global pointer/wheel/touch interception.
+- Entry scan makes one pass and ends invisible (computed opacity 0); four paths draw once and labels appear progressively. There is no endlessly repeated scanning.
+- Off-screen state measured after navigation to Прогресс: motion-active false, scene animation paused, body scroll 0, section top approximately 80 px. Document-hidden CSS pauses animations.
+- Reduced-motion guards disable tilt/scroll changes, entry motion and the scanning layer. OS setting not changed during verification.
 
-- Widths checked: 360, 390, 768, 1024, 1268, 1440, 1920 px. No horizontal document overflow. Ingredient labels remain within the viewport. Source image loaded at every size.
-- Pointer movement verified in the in-app Browser: the frame changes continuously through small rotations (e.g. rotateX 0.36°, rotateY 0.69°), while labels move independently by only a few pixels. Spring smoothing uses damping 24; maximum configured tilt is 1.8°. Pointer bounds are invalidated when scroll changes.
-- Cursor tilt only applies on desktop with a fine mouse pointer. Touch/pointer cancellation resets the pointer values. Scroll parallax has a total range of 12 px; no wheel/touch listeners block native page scrolling.
-- Mobile menu opens and closes when selecting Прогресс. Completed anchor scroll positions Прогресс about 80 px below the viewport top. Body scroll remains 0: there is no secondary body scroll container.
-- When the hero leaves the viewport, `data-motion-active=false` and computed ingredient animation-play-state becomes `paused`. CSS also pauses these animations when the document is hidden.
-- Reduced-motion guards disable pointer/scroll transforms and entry movement; existing global reduced-motion CSS limits repeating animations. The browser's OS reduced-motion setting was not changed during this session.
-- Browser warning/error logs: empty in the checked hero, navigation and responsive states.
-- Scoped ESLint, TypeScript and production `build:pages`: passed.
-- Remaining test gap: responsive checks use the in-app desktop browser viewport; physical iOS/Android devices were not tested.
+## Responsive and behavior checks
 
-## Asset provenance
+- Viewports: 360×800, 390×844, 768×1024, 1024×768, 1440×900, 1920×1080.
+- No horizontal document overflow; all four labels within viewport, textClipped false; plate loaded.
+- Zero old phone screen/frame nodes. Old screenshot/ingredient asset imports and phone CSS removed.
+- Mobile menu opens and closes on Прогресс; completed anchor scroll respects header spacing.
+- Browser warning/error logs empty in checked hero and navigation states.
+- ESLint: no errors; six pre-existing Fast Refresh warnings in unrelated UI components.
+- TypeScript and production build: passed.
+- Test gap: desktop in-app responsive viewport testing, not physical iOS/Android device testing.
 
-Source screenshot copied from the supplied file, then encoded as WebP quality 95; no visual UI edits. New cutouts generated with built-in ImageGen, transparent backgrounds, reference image supplied. Original PNGs are retained locally under `tmp/hero-originals/`; deployable WebP assets are in `src/assets/`.
+## Asset provenance and prompt
 
-- `src/assets/nutriva-ai-salad.webp`: complete original app screen, 852 × 1847.
-- `src/assets/hero-tomato.webp`: 384 × 384. Prompt: one photorealistic ripe red tomato with green stem and fresh droplets, premium white/mint food-ad lighting, isolated transparent background, wholly contained, no text, container or floor.
-- `src/assets/hero-cucumber.webp`: 384 × 384. Prompt: one photorealistic thick round cucumber slice, dark green textured rind, juicy pale interior and clear seeds, slight three-quarter tilt, fresh droplets, isolated transparent background, premium food-ad lighting, no text or container.
-- `src/assets/hero-onion.webp`: 384 × 384. Prompt: one photorealistic purple/red onion slice with crisp concentric lavender-magenta rings and pale center, slight three-quarter tilt, fresh moist texture, premium food-ad lighting, isolated transparent background, no text or container.
+Built-in ImageGen background-extraction edit with supplied source: extract only the large foreground double sage-green-rim plate, preserve food arrangement/photographic texture/camera angle, remove table/board/cloth/utensils/small bowl/external fruits/black bowl, reconstruct only tiny obscured rim sections, retain entire plate, true transparent alpha, no text/UI/shadow. Second pass removed only stray exterior light fragments. Final WebP encoded at 1024 px, quality 95, alphaQuality 100; no API/CLI fallback.
 
-## Findings and implementation checklist
+## Result
 
-No outstanding P0/P1/P2 findings. Required assets installed; real source screen preserved; rounded framing, independent ingredient layers, gentle pointer/scroll movement, responsive layout and viewport animation pausing verified. Physical-device testing remains an optional follow-up.
+All requested visible surfaces implemented and checked. No outstanding actionable P0/P1/P2 finding.
 
 final result: passed

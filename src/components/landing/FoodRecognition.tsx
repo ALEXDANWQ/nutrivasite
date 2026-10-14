@@ -1,0 +1,175 @@
+import { useEffect, useRef, type PointerEvent } from "react";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { Check, ScanLine } from "lucide-react";
+import plate from "@/assets/recognition-salad-plate.webp";
+
+// All anchors use the same 1000×1000 space as the photograph and leader lines.
+// Plate, labels and lines share one transform so the pointers cannot drift away.
+const ingredients = [
+  { key: "persimmon", name: "Хурма", x: 316, y: 364, line: "M 248 206 H 275 L 316 364" },
+  { key: "pomegranate", name: "Гранат", x: 647, y: 218, line: "M 752 206 H 705 L 647 218" },
+  { key: "greens", name: "Зелень", x: 280, y: 680, line: "M 248 798 H 260 L 280 680" },
+  { key: "cheese", name: "Мягкий сыр", x: 725, y: 669, line: "M 752 798 H 748 L 725 669" },
+] as const;
+const spring = { stiffness: 75, damping: 26, mass: 0.8 };
+
+export function FoodRecognition() {
+  const stageRef = useRef<HTMLElement>(null);
+  const pointerBounds = useRef<DOMRect | null>(null);
+  const finePointer = useRef(false);
+  const reducedMotion = useReducedMotion();
+  const inView = useInView(stageRef);
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const smoothX = useSpring(pointerX, spring);
+  const smoothY = useSpring(pointerY, spring);
+  const rotateX = useTransform(smoothY, [-1, 1], [2, -2]);
+  const rotateY = useTransform(smoothX, [-1, 1], [-2.5, 2.5]);
+  const rotateZ = useTransform(smoothX, [-1, 1], [-0.5, 0.5]);
+  const { scrollYProgress } = useScroll({ target: stageRef, offset: ["start end", "end start"] });
+  const scrollOffset = useTransform(scrollYProgress, [0, 1], [5, -5]);
+  const scrollY = useSpring(scrollOffset, spring);
+
+  useMotionValueEvent(scrollYProgress, "change", () => {
+    pointerBounds.current = null;
+  });
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine)");
+    const update = () => {
+      finePointer.current = media.matches;
+      pointerX.set(0);
+      pointerY.set(0);
+    };
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, [pointerX, pointerY]);
+
+  const resetPointer = () => {
+    pointerX.set(0);
+    pointerY.set(0);
+    pointerBounds.current = null;
+  };
+
+  const movePointer = (event: PointerEvent<HTMLElement>) => {
+    if (reducedMotion || !finePointer.current || !inView || event.pointerType !== "mouse") return;
+    const bounds = pointerBounds.current ?? event.currentTarget.getBoundingClientRect();
+    pointerBounds.current = bounds;
+    pointerX.set(
+      Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width - 0.5) * 2)),
+    );
+    pointerY.set(
+      Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height - 0.5) * 2)),
+    );
+  };
+
+  return (
+    <figure
+      ref={stageRef}
+      className="recognition-stage"
+      data-motion-active={inView && !reducedMotion ? "true" : "false"}
+      onPointerEnter={(event) => {
+        pointerBounds.current = event.currentTarget.getBoundingClientRect();
+      }}
+      onPointerMove={movePointer}
+      onPointerLeave={resetPointer}
+      onPointerCancel={resetPointer}
+    >
+      <motion.div className="recognition-parallax" style={{ y: reducedMotion ? 0 : scrollY }}>
+        <motion.div
+          className="recognition-tilt"
+          style={{
+            rotateX: reducedMotion ? 0 : rotateX,
+            rotateY: reducedMotion ? 0 : rotateY,
+            rotateZ: reducedMotion ? 0 : rotateZ,
+          }}
+        >
+          <div className="recognition-scene">
+            <img
+              src={plate}
+              alt="Большая тарелка салата с хурмой, гранатом, зеленью и мягким сыром."
+              width={1024}
+              height={1024}
+              fetchPriority="high"
+              decoding="async"
+              draggable={false}
+              className="recognition-plate"
+            />
+
+            <div className="recognition-scan-mask" aria-hidden="true">
+              <div className="recognition-scan" />
+            </div>
+
+            <svg className="recognition-leaders" viewBox="0 0 1000 1000" aria-hidden="true">
+              {ingredients.map(({ key, line, x, y }, index) => (
+                <g key={key}>
+                  <motion.path
+                    d={line}
+                    fill="none"
+                    className="recognition-leader"
+                    initial={reducedMotion ? false : { pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{
+                      duration: reducedMotion ? 0 : 0.8,
+                      delay: reducedMotion ? 0 : 0.45 + index * 0.16,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  />
+                  <motion.g
+                    initial={reducedMotion ? false : { opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: reducedMotion ? 0 : 0.8 + index * 0.16 }}
+                  >
+                    <circle cx={x} cy={y} r="12" className="recognition-point-ring" />
+                    <circle cx={x} cy={y} r="5" className="recognition-point" />
+                  </motion.g>
+                </g>
+              ))}
+            </svg>
+
+            {ingredients.map(({ key, name }, index) => (
+              <motion.div
+                key={key}
+                className={`recognition-label recognition-label-${key}`}
+                initial={reducedMotion ? false : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: reducedMotion ? 0 : 0.5,
+                  delay: reducedMotion ? 0 : 0.7 + index * 0.16,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                <span>{name}</span>
+                <Check aria-hidden="true" size={12} strokeWidth={2.4} />
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        className="recognition-status"
+        initial={reducedMotion ? false : { opacity: 0, y: 5 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: reducedMotion ? 0 : 1.3 }}
+      >
+        <ScanLine aria-hidden="true" size={15} />
+        <span>Распознано</span>
+        <Check aria-hidden="true" size={13} />
+      </motion.div>
+      <figcaption className="sr-only">
+        Демонстрация распознавания ингредиентов по фото: хурма, гранат, зелень и мягкий сыр.
+      </figcaption>
+    </figure>
+  );
+}
