@@ -413,6 +413,10 @@ html[data-page-hidden] .ambient-glow {
   vector-effect: non-scaling-stroke;
 }
 
+.recognition-cutouts-mobile {
+  display: none;
+}
+
 .recognition-point-ring {
   fill: rgb(255 255 255 / 24%);
   stroke: rgb(255 255 255 / 92%);
@@ -430,8 +434,6 @@ html[data-page-hidden] .ambient-glow {
 .recognition-label {
   position: absolute;
   z-index: 3;
-  width: 30%;
-  height: 11%;
   color: #123d2a;
 }
 
@@ -445,8 +447,8 @@ html[data-page-hidden] .ambient-glow {
   border: 1px solid rgb(255 255 255 / 88%);
   border-radius: 22px;
   background: rgb(239 250 243 / 70%);
-  -webkit-backdrop-filter: blur(40px) saturate(1.2);
-  backdrop-filter: blur(40px) saturate(1.2);
+  -webkit-backdrop-filter: blur(48px) saturate(1.2);
+  backdrop-filter: blur(48px) saturate(1.2);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 90%),
     inset 0 -1px 0 rgb(165 201 177 / 28%),
@@ -472,16 +474,6 @@ html[data-page-hidden] .ambient-glow {
   filter: drop-shadow(0 5px 4px rgb(31 60 28 / 17%));
 }
 
-.recognition-label-persimmon {
-  left: 1%;
-  top: 17%;
-  --badge-angle: -4deg;
-}
-.recognition-label-pomegranate {
-  right: 1%;
-  top: 8%;
-  --badge-angle: 3deg;
-}
 .recognition-label-pomegranate .recognition-glass,
 .recognition-label-cheese .recognition-glass {
   flex-direction: row-reverse;
@@ -491,17 +483,6 @@ html[data-page-hidden] .ambient-glow {
 .recognition-label-cheese .recognition-ingredient {
   margin-left: 0;
   margin-right: -14%;
-}
-.recognition-label-greens {
-  left: 0;
-  top: 71%;
-  --badge-angle: 4deg;
-}
-.recognition-label-cheese {
-  right: 2%;
-  top: 78%;
-  width: 33%;
-  --badge-angle: -3deg;
 }
 .recognition-label-cheese .recognition-ingredient {
   width: 43%;
@@ -668,11 +649,17 @@ html[data-page-hidden] .recognition-scan {
     /* Match the larger photograph without moving ingredient target points. */
     transform: scale(1.0714286);
   }
+  .recognition-cutouts-desktop {
+    display: none;
+  }
+  .recognition-cutouts-mobile {
+    display: inline;
+  }
   .recognition-glass {
     border-radius: 15px;
     padding: 0 7px 0 5px;
-    -webkit-backdrop-filter: blur(28px) saturate(1.15);
-    backdrop-filter: blur(28px) saturate(1.15);
+    -webkit-backdrop-filter: blur(34px) saturate(1.15);
+    backdrop-filter: blur(34px) saturate(1.15);
   }
   .recognition-label-pomegranate .recognition-glass,
   .recognition-label-cheese .recognition-glass {
