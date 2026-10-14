@@ -87,7 +87,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.55, ease }}
-            className="hero-actions mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center lg:justify-start"
+            className="hero-actions mt-7 flex flex-wrap items-center justify-center gap-3 sm:mt-10 lg:justify-start"
           >
             <a
               href={RUSTORE}
