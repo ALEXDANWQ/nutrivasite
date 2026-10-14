@@ -1,94 +1,149 @@
-import { motion } from "framer-motion";
-import { IconDrop, IconFlame, IconRing } from "./Icons";
-import phone from "@/assets/nutriva-phone.png";
+import { useEffect, useRef, type PointerEvent } from "react";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { Spline, Sparkles } from "lucide-react";
+import screenshot from "@/assets/nutriva-ai-salad.webp";
+import tomato from "@/assets/hero-tomato.webp";
+import cucumber from "@/assets/hero-cucumber.webp";
+import onion from "@/assets/hero-onion.webp";
 
-const ease = [0.22, 1, 0.36, 1] as const;
-
-const badges = [
-  {
-    icon: IconFlame,
-    label: "Калории",
-    value: "388",
-    detail: "-18%",
-    className: "left-0 top-[17%] -translate-x-4 sm:-translate-x-10 lg:-translate-x-14",
-  },
-  {
-    icon: IconDrop,
-    label: "Вода",
-    value: "700 мл",
-    detail: "+1 ст.",
-    className: "right-0 top-[47%] translate-x-4 sm:translate-x-8 lg:translate-x-12",
-  },
-  {
-    icon: IconRing,
-    label: "Прогресс",
-    value: "92%",
-    detail: "нед.",
-    className: "left-[8%] bottom-[7%] sm:left-0 sm:-translate-x-8 lg:-translate-x-12",
-  },
-];
+const ingredients = [
+  { name: "Помидоры", image: tomato, position: "tomato" },
+  { name: "Огурцы", image: cucumber, position: "cucumber" },
+  { name: "Лук", image: onion, position: "onion" },
+] as const;
+const spring = { stiffness: 85, damping: 24, mass: 0.8 };
 
 export function PhoneMockup() {
+  const stageRef = useRef<HTMLElement>(null);
+  const pointerBounds = useRef<DOMRect | null>(null);
+  const finePointer = useRef(false);
+  const reducedMotion = useReducedMotion();
+  const inView = useInView(stageRef);
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const smoothX = useSpring(pointerX, spring);
+  const smoothY = useSpring(pointerY, spring);
+  const rotateX = useTransform(smoothY, [-1, 1], [1.2, -1.2]);
+  const rotateY = useTransform(smoothX, [-1, 1], [-1.8, 1.8]);
+  const layerX = useTransform(smoothX, [-1, 1], [-5, 5]);
+  const layerY = useTransform(smoothY, [-1, 1], [-4, 4]);
+  const { scrollYProgress } = useScroll({
+    target: stageRef,
+    offset: ["start end", "end start"],
+  });
+  const scrollOffset = useTransform(scrollYProgress, [0, 1], [6, -6]);
+  const scrollY = useSpring(scrollOffset, spring);
+
+  useMotionValueEvent(scrollYProgress, "change", () => {
+    pointerBounds.current = null;
+  });
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine)");
+    const update = () => {
+      finePointer.current = media.matches;
+      pointerX.set(0);
+      pointerY.set(0);
+    };
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, [pointerX, pointerY]);
+
+  const resetPointer = () => {
+    pointerX.set(0);
+    pointerY.set(0);
+    pointerBounds.current = null;
+  };
+
+  const movePointer = (event: PointerEvent<HTMLElement>) => {
+    if (reducedMotion || !finePointer.current || !inView || event.pointerType !== "mouse") {
+      return;
+    }
+    const bounds = pointerBounds.current ?? event.currentTarget.getBoundingClientRect();
+    pointerBounds.current = bounds;
+    pointerX.set(
+      Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width - 0.5) * 2)),
+    );
+    pointerY.set(
+      Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height - 0.5) * 2)),
+    );
+  };
+
   return (
-    <motion.div
-      className="relative mx-auto w-full max-w-[280px] select-none sm:max-w-[380px] lg:max-w-[500px]"
-      initial="hidden"
-      animate="show"
-      variants={{
-        hidden: {},
-        show: { transition: { staggerChildren: 0.08, delayChildren: 0.12 } },
+    <figure
+      ref={stageRef}
+      className="hero-phone-stage"
+      data-motion-active={inView && !reducedMotion ? "true" : "false"}
+      onPointerEnter={(event) => {
+        pointerBounds.current = event.currentTarget.getBoundingClientRect();
       }}
+      onPointerMove={movePointer}
+      onPointerLeave={resetPointer}
+      onPointerCancel={resetPointer}
     >
-      <motion.div
-        aria-hidden
-        className="absolute inset-x-8 bottom-8 top-12 -z-10 rounded-[44px] bg-primary/10 blur-3xl"
-        variants={{
-          hidden: { opacity: 0, scale: 0.9 },
-          show: { opacity: 1, scale: 1 },
-        }}
-        transition={{ duration: 1, ease }}
-      />
-
-      <motion.img
-        src={phone}
-        alt="NUTRIVA - скриншот приложения"
-        width={1122}
-        height={1402}
-        fetchPriority="high"
-        decoding="async"
-        className="relative z-10 block h-auto w-full object-contain drop-shadow-[0_36px_70px_rgba(17,24,39,0.16)]"
-        draggable={false}
-        variants={{
-          hidden: { opacity: 0, y: 26, scale: 0.985 },
-          show: { opacity: 1, y: 0, scale: 1 },
-        }}
-        transition={{ duration: 0.9, ease }}
-      />
-
-      {badges.map(({ icon: Icon, label, value, detail, className }, index) => (
+      <motion.div className="hero-phone-parallax" style={{ y: reducedMotion ? 0 : scrollY }}>
         <motion.div
-          key={label}
-          className={`absolute z-20 hidden min-w-[128px] items-center gap-2 rounded-2xl border border-white/70 bg-white/82 px-3 py-2.5 shadow-[0_18px_50px_-28px_rgba(17,24,39,0.32)] backdrop-blur-xl sm:flex ${className}`}
-          variants={{
-            hidden: { opacity: 0, y: 14, scale: 0.96 },
-            show: { opacity: 1, y: 0, scale: 1 },
-          }}
-          transition={{ duration: 0.65, delay: index * 0.05, ease }}
+          className="hero-phone-frame"
+          style={{ rotateX: reducedMotion ? 0 : rotateX, rotateY: reducedMotion ? 0 : rotateY }}
         >
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-mint text-primary-deep">
-            <Icon className="h-4 w-4" />
-          </span>
-          <span className="min-w-0">
-            <span className="block text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
-              {label}
-            </span>
-            <span className="mt-0.5 flex items-baseline gap-1.5 whitespace-nowrap leading-none">
-              <span className="text-[17px] font-black tracking-tight">{value}</span>
-              <span className="text-[10px] font-bold text-primary-deep">{detail}</span>
-            </span>
-          </span>
+          <img
+            src={screenshot}
+            alt="NUTRIVA: ИИ распознаёт салат по фото — порция 250 г, 100 ккал, 2 г белка, 5 г жиров и 12 г углеводов."
+            width={852}
+            height={1847}
+            fetchPriority="high"
+            decoding="async"
+            draggable={false}
+            className="hero-phone-screen"
+          />
         </motion.div>
-      ))}
-    </motion.div>
+
+        <motion.div
+          aria-hidden="true"
+          className="hero-ingredient-layers"
+          style={{ x: reducedMotion ? 0 : layerX, y: reducedMotion ? 0 : layerY }}
+        >
+          {ingredients.map(({ name, image, position }, index) => (
+            <motion.div
+              key={name}
+              className={`hero-ingredient hero-ingredient-${position}`}
+              initial={reducedMotion ? false : { opacity: 0, y: 12, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.65, delay: 0.45 + index * 0.12, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="hero-ingredient-float">
+                <div className="hero-ingredient-pill">
+                  <img src={image} width={384} height={384} alt="" draggable={false} />
+                  <span>{name}</span>
+                </div>
+                <Spline className="hero-ingredient-connector" strokeWidth={1} />
+              </div>
+            </motion.div>
+          ))}
+          <div className="hero-produce hero-produce-tomato">
+            <img src={tomato} alt="" width={384} height={384} draggable={false} />
+          </div>
+          <div className="hero-produce hero-produce-cucumber">
+            <img src={cucumber} alt="" width={384} height={384} draggable={false} />
+          </div>
+        </motion.div>
+      </motion.div>
+
+      <figcaption className="hero-phone-caption">
+        <Sparkles aria-hidden="true" size={14} />
+        <span>Фото — и всё посчитано</span>
+        <span className="hero-phone-caption-plus">Plus</span>
+      </figcaption>
+    </figure>
   );
 }

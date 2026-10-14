@@ -8,7 +8,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pb-14 pt-20 sm:pb-20 sm:pt-32 md:pb-32 md:pt-40">
+    <section className="hero-section relative overflow-hidden pb-14 pt-20 sm:pb-20 sm:pt-24 md:pb-24 md:pt-28">
       <div aria-hidden className="absolute inset-0 -z-10 pointer-events-none">
         <AmbientGlow
           className="absolute -top-32 -left-20 w-[420px] sm:w-[560px] h-[420px] sm:h-[560px] rounded-full opacity-60"
@@ -30,52 +30,54 @@ export function Hero() {
         />
       </div>
 
-      <div className="mx-auto grid max-w-7xl items-center gap-9 px-4 sm:gap-14 sm:px-5 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
-        <div className="text-center lg:text-left order-2 lg:order-1">
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease }}
-            className="inline-flex items-center gap-2 rounded-full glass-card px-3 py-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/80 mb-5 sm:mb-7"
-          >
-            <span className="relative flex w-1.5 h-1.5">
-              <span className="relative rounded-full bg-primary w-1.5 h-1.5" />
-            </span>
-            Premium · Health-tech
-          </motion.div>
+      <div className="hero-layout mx-auto grid max-w-7xl items-center gap-9 px-4 sm:gap-14 sm:px-5 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+        <div className="hero-copy text-center lg:text-left order-2 lg:order-1">
+          <div className="hero-intro">
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease }}
+              className="inline-flex items-center gap-2 rounded-full glass-card px-3 py-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/80 mb-5 sm:mb-7"
+            >
+              <span className="relative flex w-1.5 h-1.5">
+                <span className="relative rounded-full bg-primary w-1.5 h-1.5" />
+              </span>
+              Premium · Health-tech
+            </motion.div>
 
-          <h1 className="font-display text-balance text-[36px] font-black leading-[0.96] tracking-[-0.045em] sm:text-[52px] sm:leading-[0.95] md:text-[68px] lg:text-[80px]">
-            {["Умный", "контроль", "питания"].map((word, i) => (
+            <h1 className="font-display text-balance text-[36px] font-black leading-[0.96] tracking-[-0.045em] sm:text-[52px] sm:leading-[0.95] md:text-[68px] lg:text-[80px]">
+              {["Умный", "контроль", "питания"].map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.9, delay: 0.1 + i * 0.08, ease }}
+                  className="block overflow-hidden"
+                >
+                  {word}{" "}
+                </motion.span>
+              ))}
               <motion.span
-                key={i}
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.1 + i * 0.08, ease }}
-                className="block overflow-hidden"
+                transition={{ duration: 0.9, delay: 0.34, ease }}
+                className="block font-serif italic font-normal tracking-[-0.02em]"
+                style={{
+                  backgroundImage: "linear-gradient(135deg, #36C978 0%, #159957 60%, #0B6B3E 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
               >
-                {word}
+                каждый день.
               </motion.span>
-            ))}
-            <motion.span
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.34, ease }}
-              className="block font-serif italic font-normal tracking-[-0.02em]"
-              style={{
-                backgroundImage: "linear-gradient(135deg, #36C978 0%, #159957 60%, #0B6B3E 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              каждый день.
-            </motion.span>
-          </h1>
+            </h1>
+          </div>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45, ease }}
-            className="mt-5 sm:mt-7 text-[15px] sm:text-[17px] md:text-[19px] text-slate-600 max-w-xl mx-auto lg:mx-0 leading-[1.55] text-balance"
+            className="hero-description mt-5 sm:mt-7 text-[15px] sm:text-[17px] md:text-[19px] text-slate-600 max-w-xl mx-auto lg:mx-0 leading-[1.55] text-balance"
           >
             Калории, БЖУ, вода, вес и прогресс — в одном чистом и спокойном приложении. Без
             перегруза, без сложных таблиц, без лишнего шума.
@@ -85,7 +87,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.55, ease }}
-            className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center lg:justify-start"
+            className="hero-actions mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-10 sm:flex-row sm:items-center lg:justify-start"
           >
             <a
               href={RUSTORE}
@@ -114,7 +116,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="mt-9 flex items-center justify-center gap-5 text-xs text-muted-foreground sm:mt-12 sm:gap-8 lg:justify-start"
+            className="hero-proof mt-9 flex items-center justify-center gap-5 text-xs text-muted-foreground sm:mt-12 sm:gap-8 lg:justify-start"
           >
             <div className="flex items-center gap-3">
               <div className="flex -space-x-1.5">
@@ -139,7 +141,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease }}
-          className="relative order-1 px-1 sm:px-6 lg:order-2 lg:px-0"
+          className="hero-visual relative order-1 lg:order-2"
         >
           <PhoneMockup />
         </motion.div>
