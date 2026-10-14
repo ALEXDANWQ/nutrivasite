@@ -57,8 +57,8 @@ export function Features() {
           {items.map((it, i) => {
             const Icon = it.icon;
             return (
-              <Reveal key={it.title} delay={(i % 4) * 0.08}>
-                <div className="group relative h-full overflow-hidden rounded-2xl border border-[color:var(--hairline)] bg-white p-4 shadow-soft transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-1.5 hover:shadow-elevated sm:rounded-3xl sm:p-6 md:p-7">
+              <Reveal key={it.title} delay={(i % 4) * 0.08} className="group h-full">
+                <div className="relative h-full overflow-hidden rounded-2xl border border-[color:var(--hairline)] bg-white p-4 shadow-soft transition-[translate,box-shadow] duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-y-1 group-hover:shadow-elevated sm:rounded-3xl sm:p-6 md:p-7">
                   <div
                     aria-hidden
                     className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"

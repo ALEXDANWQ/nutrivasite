@@ -44,9 +44,9 @@ export function WhyNutriva() {
           {items.map((it, i) => {
             const Icon = it.icon;
             return (
-              <Reveal key={it.title} delay={i * 0.1}>
+              <Reveal key={it.title} delay={i * 0.1} className="group h-full">
                 <div
-                  className="group relative h-full overflow-hidden rounded-2xl border border-white/70 bg-white/90 p-5 text-left transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-1.5 hover:shadow-elevated sm:rounded-3xl sm:p-8"
+                  className="relative h-full overflow-hidden rounded-2xl border border-white/70 bg-white/90 p-5 text-left transition-[translate,box-shadow] duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-y-1 sm:rounded-3xl sm:p-8"
                   style={{
                     boxShadow:
                       "0 1px 0 rgba(255,255,255,0.8) inset, 0 12px 40px -16px rgba(17,24,39,0.10)",
